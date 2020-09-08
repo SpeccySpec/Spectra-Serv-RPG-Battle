@@ -9,22 +9,22 @@
   
 <script>
 function rpgBattle() {
-  strength = $('#atk').html
-  weapon = $('#weapon').html
-  basedmg = randNum()
-  critical = crit?()
+  var strength = $('#atk').html
+  var weapon = $('#weapon').html
+  var basedmg = randNum()
+  var critical = crit?()
   if critical = true
     basedmg = math.floor($ + ($/2))
   end
-  document.getElementById("result").value = math.floor(basedmg + weapon + strength)
-  return result
+  var result = basedmg+strength+weapon
+  alert(result);
 }
 
 function randNum() {
     var minNumber = 0; // The minimum number you want
     var maxNumber = 30; // The maximum number you want
-    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
-    return randomnumber; // Sets content of <div> to number
+    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber + 1) ) + minNumber; // Generates random number
+    return randomnumber; // Returns the random number
 }
   
 function crit?() {
@@ -42,7 +42,6 @@ function crit?() {
 <div id="weapon"></div>
 <div id="defense"></div>
 
-<form name="thing">
   <p>Strength:</p>
   <input type="number" id="strength" name="atk" min="1" max="5">
 
@@ -54,5 +53,4 @@ function crit?() {
 
   <button type="button" onclick="rpgBattle()">Calculate Base Damage!</button>
 
-  <input type="text" name="result"/>
-</form>
+  <div id="randomnumber"
