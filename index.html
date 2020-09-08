@@ -9,14 +9,14 @@
 function randNum() {
     var minNumber = 0; // The minimum number you want
     var maxNumber = 30; // The maximum number you want
-    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber + 1) ) + minNumber; // Generates random number
-    return randomnumber; // Returns the random number
+    var randomNumber = Math.floor(Math.random() * (maxNumber - minNumber + 1) ) + minNumber; // Generates random number
+    return randomNumber; // Returns the random number
 }
   
 function checkCrit() {
     var minNumber = 0; // The minimum number you want
     var maxNumber = 10; // The maximum number you want
-    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
+    var randomNumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
     if randomNumber > 9 {
         return true;
     }
@@ -54,5 +54,5 @@ function rpgBattle() {
 
   <button type="button" onclick="rpgBattle()">Calculate Base Damage!</button>
 
-  <div id="randomnumber"></div>
+  <div id="randomNumber"></div>
   </body>
