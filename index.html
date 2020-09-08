@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="shortcut icon" type="image/png" href="favicon.png" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RPG Battle</title>
@@ -18,9 +17,9 @@ function checkCrit() {
     var minNumber = 0; // The minimum number you want
     var maxNumber = 10; // The maximum number you want
     var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
-    if randomNumber == 10
+    if randomNumber > 9 {
         return true;
-    end
+    }
 }
 
 function rpgBattle() {
@@ -29,7 +28,9 @@ function rpgBattle() {
   var defense = $('#defense').html;
   var basedmg = randNum();
   var critical = checkCrit();
-  if critical == true then basedmg = math.floor($ + ($/2));
+  if critical = true {
+      basedmg = math.floor($ + ($/2));
+  }
   var result = basedmg+strength+weapon-defense;
   alert(result);
 }
