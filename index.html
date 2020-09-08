@@ -7,6 +7,8 @@
   <title>RPG Battle</title>
 </head>
 
+<div id="NumStore"></div>
+  
 <form action="/action_page.php">
   <label for="quantity">Strength:</label>
   <input type="number" id="atk" name="atk" min="1" max="5">
@@ -22,16 +24,26 @@
 <button type="button" id="myBtn" onclick="rpgBattle()">Try it</button>
 
 <script>
-function myBtn() {
-  strength = document.getElementById("atk").value
-  weapon = document.getElementById("weap").value
+function rpgBattle() {
+  strength = $('#atk').html
+  weapon = $('#weapon').html
+  basedmg = randNum()
+  critical = crit?()
 }
 
-function getNumber() {
+function randNum() {
     var minNumber = 0; // The minimum number you want
-    var maxNumber = 100; // The maximum number you want
-    var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber); // Generates random number
-    $('#myNumber').html(randomnumber); // Sets content of <div> to number
-    return false; // Returns false just to tidy everything up
+    var maxNumber = 30; // The maximum number you want
+    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
+    return randomnumber; // Sets content of <div> to number
+}
+  
+function crit?() {
+    var minNumber = 0; // The minimum number you want
+    var maxNumber = 10; // The maximum number you want
+    var randomnumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
+    if randomNumber >= 10
+        return true;
+    end
 }
 </script>
