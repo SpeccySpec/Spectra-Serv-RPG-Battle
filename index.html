@@ -8,18 +8,6 @@
 </head>
   
 <script>
-function rpgBattle() {
-  var strength = $('#atk').html
-  var weapon = $('#weapon').html
-  var basedmg = randNum()
-  var critical = crit?()
-  if critical = true
-    basedmg = math.floor($ + ($/2))
-  end
-  var result = basedmg+strength+weapon
-  alert(result);
-}
-
 function randNum() {
     var minNumber = 0; // The minimum number you want
     var maxNumber = 30; // The maximum number you want
@@ -34,6 +22,17 @@ function crit?() {
     if randomNumber >= 10
         return true;
     end
+}
+
+function rpgBattle() {
+  var strength = $('#atk').html;
+  var weapon = $('#weapon').html;
+  var defense = $('#defense').html;
+  var basedmg = randNum();
+  var critical = crit?();
+  if critical == true then basedmg = math.floor($ + ($/2));
+  var result = basedmg+strength+weapon-defense;
+  alert(result);
 }
 </script>
 
