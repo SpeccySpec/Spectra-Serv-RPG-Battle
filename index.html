@@ -6,22 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RPG Battle</title>
 </head>
-
-<div id="NumStore"></div>
   
- 
-<label for="quantity">Strength:</label>
-<input type="number" id="atk" name="atk" min="1" max="5">
-<input type="submit">
-
-<label for="quantity">Weapon Proficiency:</label>
-<input type="number" id="weap" name="weap" min="1" max="5">
-<input type="submit">
-
-<button type="button" id="myBtn" onclick="rpgBattle()">Try it</button>
-  
-<div id="result"/>
-
 <script>
 function rpgBattle() {
   strength = $('#atk').html
@@ -51,3 +36,16 @@ function crit?() {
     end
 }
 </script>
+
+<div id="NumStore"></div>
+<div id="strength"></div>
+<div id="weapon"></div>
+<div id="result"></div> 
+ 
+<p>Strength:</p>
+<input type="number" id="strength" name="atk" min="1" max="5">
+
+<p>Weapon Proficiency:</p>
+<input type="number" id="weapon" name="weap" min="1" max="5">
+
+<button type="button" onclick="rpgBattle()">Try it</button>
