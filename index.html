@@ -9,19 +9,18 @@
 
 <div id="NumStore"></div>
   
-<form action="/action_page.php">
-  <label for="quantity">Strength:</label>
-  <input type="number" id="atk" name="atk" min="1" max="5">
-  <input type="submit">
-</form>
+ 
+<label for="quantity">Strength:</label>
+<input type="number" id="atk" name="atk" min="1" max="5">
+<input type="submit">
 
-<form action="/action_page.php">
-  <label for="quantity">Weapon Proficiency:</label>
-  <input type="number" id="weap" name="weap" min="1" max="5">
-  <input type="submit">
-</form>
+<label for="quantity">Weapon Proficiency:</label>
+<input type="number" id="weap" name="weap" min="1" max="5">
+<input type="submit">
 
 <button type="button" id="myBtn" onclick="rpgBattle()">Try it</button>
+  
+<div id="result"/>
 
 <script>
 function rpgBattle() {
@@ -29,6 +28,11 @@ function rpgBattle() {
   weapon = $('#weapon').html
   basedmg = randNum()
   critical = crit?()
+  if critical = true
+    basedmg = math.floor($ + ($/2))
+  end
+  document.getElementById("result").value = math.floor(basedmg + weapon + strength)
+  return result
 }
 
 function randNum() {
