@@ -17,13 +17,34 @@
 
 <p>Weapon Proficiency:</p>
 <input type="number" id="weapon" name="weap" min="1" max="10">
+  
+<p>Attack Element:</p>
+<select name="element" id="element">
+  <option value="normal">Normal</option>
+  <option value="sharp">Sharp</option>
+  <option value="blunt">Blunt</option>
+  <option value="fire">Fire</option>
+  <option value="water">Water</option>
+  <option value="ice">Ice</option>
+  <option value="electric">Electric</option>
+  <option value="wind">Wind</option>
+  <option value="geokinesis">Geokinesis</option>
+  <option value="fighting">Fighting</option>
+  <option value="psychic">Psychic</option>
+  <option value="dark">Dark</option>
+  <option value="poison">Poison</option>
+  <option value="nuclear">Nuclear</option>
+  <option value="light">Light</option>
+  <option value="stardust">Stardust</option>
+  <option value="mystical">Mystical</option>
+</select>
 
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
 
 <p>
 <button onclick="regularAttack()">Calculate Base Damage!</button>
-<button onclick="superBattle()">Super Attack!</button>
+<button onclick="superAttack()">Super Attack!</button>
 </p>
 
 <p id="damage"></p><p id="critical?"></p>
@@ -39,6 +60,23 @@ function regularAttack() {
   if (crit < 0.85) {
      basedmg = Math.floor(basedmg + (basedmg / 2));
   }
+  var effect = Math.random();
+  if (effect < 0.85) {
+     if document.getElementById("element").value == "sharp" {
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)"
+     } else if document.getElementById("element").value == "fire" {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)"
+     } else if document.getElementById("element").value == "ice" {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)"
+     } else if document.getElementById("element").value == "electric" {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)"
+     } else if document.getElementById("element").value == "poison" {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)"
+     }
+  }
+  if document.getElementById("element").value == "nuclear" {
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)"
+  }
   var result = Math.round(basedmg + strength + weapon) - defense;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
 }
@@ -49,7 +87,7 @@ function superAttack() {
   var defense = document.getElementById("defense").value;
   var basedmg = Math.floor(Math.random() * (80 - 1 + 1) + 1);
   var crit = Math.random();
-  if (crit < 0.85) {
+  if (crit < 0.7) {
      basedmg = Math.floor(basedmg + (basedmg / 2));
   }
   var result = Math.round(basedmg + strength + weapon)
