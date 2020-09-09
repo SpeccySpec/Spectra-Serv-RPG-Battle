@@ -62,19 +62,19 @@ function regularAttack() {
   }
   var effect = Math.random();
   if (effect < 0.85) {
-     if document.getElementById("element").value == "sharp" {
+     if (document.getElementById("element").value == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)"
-     } else if document.getElementById("element").value == "fire" {
+     } else if (document.getElementById("element").value == "fire") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)"
-     } else if document.getElementById("element").value == "ice" {
+     } else if (document.getElementById("element").value == "ice") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)"
-     } else if document.getElementById("element").value == "electric" {
+     } else if (document.getElementById("element").value == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)"
-     } else if document.getElementById("element").value == "poison" {
+     } else if (document.getElementById("element").value == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)"
      }
   }
-  if document.getElementById("element").value == "nuclear" {
+  if (document.getElementById("element").value == "nuclear") {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)"
   }
   var result = Math.round(basedmg + strength + weapon) - defense;
@@ -89,6 +89,22 @@ function superAttack() {
   var crit = Math.random();
   if (crit < 0.7) {
      basedmg = Math.floor(basedmg + (basedmg / 2));
+  }
+  if (effect < 0.5) {
+     if (document.getElementById("element").value == "sharp") {
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)"
+     } else if (document.getElementById("element").value == "fire") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)"
+     } else if (document.getElementById("element").value == "ice") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)"
+     } else if (document.getElementById("element").value == "electric") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)"
+     } else if (document.getElementById("element").value == "poison") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)"
+     }
+  }
+  if (document.getElementById("element").value == "nuclear") {
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)"
   }
   var result = Math.round(basedmg + strength + weapon)
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
