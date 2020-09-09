@@ -88,7 +88,7 @@ function regularAttack() {
     if (result < 1) {
       result = 1
     }
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
+    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
