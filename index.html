@@ -85,6 +85,9 @@ function regularAttack() {
   var result = (basedmg + (strength/4) + (weapon/4)) - defense;
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
+    if (result < 1) {
+      result = 1
+    }
     document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
