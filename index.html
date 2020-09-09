@@ -35,8 +35,12 @@ function rpgBattle() {
   if (crit < 0.85) {
      basedmg = Math.floor(basedmg + (basedmg / 2));
   }
-  var result = basedmg+strength+weapon-defense;
-  document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+  var result = Math.round(basedmg + strength + weapon) - defense;
+  if isNaN(result) {
+    document.getElementById("damage").innerHTML = "Something went wrong!";
+  } else {
+    document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+  }
 }
   
 function randNum(min, max) {
