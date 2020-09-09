@@ -30,10 +30,10 @@ function rpgBattle() {
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
-  var basedmg = randNum(30);
+  var basedmg = randNum(1,30);
   var crit = Math.random();
   if (crit < 0.85) {
-     basedmg = Math.floor($ + ($/2));
+     basedmg = Math.floor(basedmg + (basedmg / 2));
   }
   var result = basedmg+strength+weapon-defense;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
