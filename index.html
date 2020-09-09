@@ -82,10 +82,10 @@ function regularAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = basedmg + strength + weapon - defense;
+  var result = (basedmg + strength + weapon) - defense;
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + strength +" strength, " + weapon + "weapon proficiency";
+    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
@@ -96,10 +96,10 @@ function regularAttack() {
   
 function superAttack() {
   document.getElementById("damage").innerHTML = "";
-  var strength = document.getElementById("strength").value/3;
-  var weapon = document.getElementById("weapon").value/3;
-  var defense = document.getElementById("defense").value/3;
-  var basedmg = Math.floor(Math.random() * (80 - 1 + 1) + 1);
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var basedmg = (Math.floor(Math.random() * (80 - 1 + 1) + 1)) + strength + weapon;
   var crit = Math.random();
   if (crit > 0.7) {
      document.getElementById("critical?").innerHTML = "(Critical)";
@@ -127,10 +127,10 @@ function superAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = basedmg + strength + weapon;
+//var result = basedmg + strength + weapon;
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
+    document.getElementById("damage").innerHTML = "The enemy took " + basedmg + " damage!";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
