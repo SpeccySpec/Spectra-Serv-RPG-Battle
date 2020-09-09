@@ -130,10 +130,13 @@ function superAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round(basedmg + (strength/2) + (weapon/2));
+  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - defense);
   var dodgechance = Math.random();
-  if (dodgechance < 0.99) {
-    document.getElementById("damage").innerHTML = "The enemy took " + basedmg + " damage!";
+  if (dodgechance < 0.95) {
+    if (result < 1) {
+      result = 1
+    }
+    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
