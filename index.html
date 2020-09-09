@@ -13,20 +13,23 @@
 <div id="defense"></div>
 
 <p>Strength:</p>
-<input type="number" id="strength" name="atk" min="1" max="5">
+<input type="number" id="strength" name="atk" min="1" max="10">
 
 <p>Weapon Proficiency:</p>
-<input type="number" id="weapon" name="weap" min="1" max="5">
+<input type="number" id="weapon" name="weap" min="1" max="10">
 
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
 
-<button onclick="rpgBattle()">Calculate Base Damage!</button>
+<p>
+<button onclick="regularAttack()">Calculate Base Damage!</button>
+<button onclick="rpgBattle()">Duo Attack!</button>
+</p>
 
 <p id="damage"></div>
 
 <script>
-function rpgBattle() {
+function regularAttack() {
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
@@ -36,11 +39,20 @@ function rpgBattle() {
      basedmg = Math.floor(basedmg + (basedmg / 2));
   }
   var result = Math.round(basedmg + strength + weapon) - defense;
-  if isNaN(result) {
-    document.getElementById("damage").innerHTML = "Something went wrong!";
-  } else {
-    document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+  document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+}
+  
+function teamAttack() {
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var basedmg = randNum(1,80);
+  var crit = Math.random();
+  if (crit < 0.85) {
+     basedmg = Math.floor(basedmg + (basedmg / 2));
   }
+  var result = Math.round(basedmg + strength + weapon) - defense;
+  document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
 }
   
 function randNum(min, max) {
