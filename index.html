@@ -21,7 +21,7 @@
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
 
-<button type="button" onclick="rpgBattle()">Calculate Base Damage!</button>
+<button onclick="rpgBattle()">Calculate Base Damage!</button>
 
 <p id="damage"></div>
 
@@ -31,8 +31,10 @@ function rpgBattle() {
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
   var basedmg = randNum(30);
-  var critical = checkCrit();
-  if critical == true basedmg = math.floor($ + ($/2));
+  var crit = Math.random();
+  if (crit < 0.85) {
+     basedmg = math.floor($ + ($/2));
+  }
   var result = basedmg+strength+weapon-defense;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
 }
@@ -41,13 +43,6 @@ function randNum(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive 
-}
-  
-function checkCrit() {
-    var randomNumber = randNum(10); // Generates random number
-    if randomNumber == 10 {
-      return true;
-    }
 }
 </script>
 </body>
