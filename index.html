@@ -91,6 +91,7 @@ function superAttack() {
   if (crit < 0.7) {
      basedmg = Math.floor(basedmg + (basedmg / 2));
   }
+  var effect = Math.random();
   if (effect < 0.5) {
      if (document.getElementById("element").value == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
