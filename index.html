@@ -14,12 +14,10 @@ function randNum() {
 }
   
 function checkCrit() {
-    var minNumber = 0; // The minimum number you want
-    var maxNumber = 10; // The maximum number you want
-    var randomNumber = Math.floor(Math.random() * (maxNumber - minNumber)) + minNumber; // Generates random number
-    if randomNumber > 9 {
+    var randomNumber = randNum(); // Generates random number
+    if randomNumber > 28 {
         return true;
-    }
+    };
 }
 
 function rpgBattle() {
