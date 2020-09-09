@@ -33,7 +33,7 @@ function rpgBattle() {
   var basedmg = randNum(30);
   var crit = Math.random();
   if (crit < 0.85) {
-     basedmg = math.floor($ + ($/2));
+     basedmg = Math.floor($ + ($/2));
   }
   var result = basedmg+strength+weapon-defense;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
