@@ -17,7 +17,6 @@
   -moz-box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.75);
 	padding:9px 23px;
-  overflow:hidden;
 }
 
 #container .element {
@@ -31,11 +30,16 @@
 #container .element:nth-child(even) {
     background: rgb(52, 110, 235);
 }
+	
+//*Style a wrapper*//
+.wrapper { 
+  overflow: hidden; 
+} 
   
 //*Style the background*//
 img {
-  height: 500px;
-  width: 5076px;
+  height: 960px; 
+  width: 6000px; 
   animation: slide 60s linear infinite;
 }
   
@@ -53,7 +57,9 @@ img {
 <body>
 <div id="NumStore"></div>
 
-<img src="background.png" alt="background">
+<div class="wrapper"> 
+  <img src="background.png" alt="background">
+</div>
 
 <center>
 <div id="container">
