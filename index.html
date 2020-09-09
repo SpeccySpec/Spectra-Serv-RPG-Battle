@@ -52,6 +52,9 @@
 
 <script>
 function regularAttack() {
+  document.getElementById("damage").innerHTML = "";
+  document.getElementById("secondary").innerHTML = "";
+  document.getElementById("critical?").innerHTML = "";
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
@@ -83,6 +86,9 @@ function regularAttack() {
 }
   
 function superAttack() {
+  document.getElementById("damage").innerHTML = "";
+  document.getElementById("secondary").innerHTML = "";
+  document.getElementById("critical?").innerHTML = "";
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
