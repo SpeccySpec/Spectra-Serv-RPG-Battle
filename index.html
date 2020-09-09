@@ -6,6 +6,17 @@
 <title>RPG Battle</title>
 
 <script>
+function rpgBattle() {
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var basedmg = randNum(30);
+  var critical = checkCrit();
+  if critical == true basedmg = math.floor($ + ($/2));
+  var result = basedmg+strength+weapon-defense;
+  document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+}
+  
 function randNum(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -14,18 +25,9 @@ function randNum(min, max) {
   
 function checkCrit() {
     var randomNumber = randNum(10); // Generates random number
-    if randomNumber > 9 return true;
-}
-
-function rpgBattle() {
-  var strength = $('#atk').html;
-  var weapon = $('#weapon').html;
-  var defense = $('#defense').html;
-  var basedmg = randNum(30);
-  var critical = checkCrit();
-  if critical = true basedmg = math.floor($ + ($/2));
-  var result = basedmg+strength+weapon-defense;
-  document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
+    if randomNumber == 10 {
+      return true;
+    }
 }
 </script>
 </head>
@@ -48,4 +50,4 @@ function rpgBattle() {
 <button type="button" onclick="rpgBattle()">Calculate Base Damage!</button>
 
 <div id="damage"></div>
-  </body>
+</body>
