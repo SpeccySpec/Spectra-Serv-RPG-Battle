@@ -82,7 +82,7 @@ function regularAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - defense);
+  var result = Math.round((basedmg + (strength) + (weapon)) - defense);
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
     if (result < 1) {
@@ -129,7 +129,7 @@ function superAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - defense);
+  var result = Math.round((basedmg + (strength) + (weapon)) - defense);
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
     if (result < 1) {
