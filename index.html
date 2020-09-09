@@ -63,21 +63,22 @@ function regularAttack() {
   var effect = Math.random();
   if (effect < 0.85) {
      if (document.getElementById("element").value == "sharp") {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)"
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
      } else if (document.getElementById("element").value == "fire") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
      } else if (document.getElementById("element").value == "ice") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
      } else if (document.getElementById("element").value == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
      } else if (document.getElementById("element").value == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
      }
   }
   if (document.getElementById("element").value == "nuclear") {
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)"
+    basedmg = Math.round(basedmg*2);
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round(basedmg + strength + weapon) - defense;
+  var result = basedmg + strength + weapon - defense;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
 }
   
@@ -92,21 +93,22 @@ function superAttack() {
   }
   if (effect < 0.5) {
      if (document.getElementById("element").value == "sharp") {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)"
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
      } else if (document.getElementById("element").value == "fire") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
      } else if (document.getElementById("element").value == "ice") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
      } else if (document.getElementById("element").value == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
      } else if (document.getElementById("element").value == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)"
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
      }
   }
   if (document.getElementById("element").value == "nuclear") {
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)"
+    basedmg = Math.round(basedmg*2);
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round(basedmg + strength + weapon)
+  var result = basedmg + strength + weapon;
   document.getElementById("damage").innerHTML = "The enemy took " + result + "damage!";
 }
 </script>
