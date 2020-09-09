@@ -53,9 +53,9 @@
 function regularAttack() {
   document.getElementById("damage").innerHTML = "";
   document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value/3;
-  var weapon = document.getElementById("weapon").value/3;
-  var defense = document.getElementById("defense").value/3;
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
   var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
   var crit = Math.random();
   if (crit > 0.85) {
@@ -85,7 +85,7 @@ function regularAttack() {
   var result = basedmg + strength + weapon - defense;
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
+    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + strength +" strength, " + weapon + "weapon proficiency";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
