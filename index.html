@@ -8,9 +8,6 @@
   
 <body>
 <div id="NumStore"></div>
-<div id="strength"></div>
-<div id="weapon"></div>
-<div id="defense"></div>
 
 <center>
 <p>Strength:</p>
@@ -56,11 +53,10 @@
 function regularAttack() {
   document.getElementById("damage").innerHTML = "";
   document.getElementById("secondary").innerHTML = "";
-  document.getElementById("critical?").innerHTML = "";
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
-  var basedmg = 30 //Math.floor(Math.random() * (30 - 1 + 1) + 1);
+  var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
   var crit = Math.random();
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
@@ -93,6 +89,9 @@ function regularAttack() {
     document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
+    if (crit > 0.85) {
+      document.getElementById("critical?").innerHTML = "(Missed crit :()";
+    }
   }
 }
   
@@ -136,6 +135,9 @@ function superAttack() {
     document.getElementById("damage").innerHTML = "The enemy took " + result + " damage!";
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
+    if (crit > 0.85) {
+      document.getElementById("critical?").innerHTML = "(Missed crit :()";
+    }
   }
 }
 </script>
