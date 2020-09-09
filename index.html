@@ -63,6 +63,8 @@ function regularAttack() {
   if (crit < 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
      basedmg = Math.floor(basedmg + (basedmg / 2));
+  } else {
+     document.getElementById("critical?").innerHTML = "";
   }
   var effect = Math.random();
   if (effect < 0.85) {
@@ -89,8 +91,6 @@ function regularAttack() {
   
 function superAttack() {
   document.getElementById("damage").innerHTML = "";
-  document.getElementById("secondary").innerHTML = "";
-  document.getElementById("critical?").innerHTML = "";
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
@@ -99,6 +99,8 @@ function superAttack() {
   if (crit < 0.7) {
      document.getElementById("critical?").innerHTML = "(Critical)";
      basedmg = Math.floor(basedmg + (basedmg / 2));
+  } else {
+     document.getElementById("critical?").innerHTML = "";
   }
   var effect = Math.random();
   if (effect < 0.5) {
@@ -113,6 +115,8 @@ function superAttack() {
      } else if (document.getElementById("element").value == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
      }
+  } else {
+     document.getElementById("secondary").innerHTML = "";
   }
   if (document.getElementById("element").value == "nuclear") {
     basedmg = Math.round(basedmg*2);
