@@ -6,11 +6,58 @@
 <title>RPG Battle</title>
 </head>
   
+<style>
+/*Style the Container*/
+#container {
+  width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: rgb(233, 233, 233);
+  -webkit-box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.75);
+	padding:9px 23px;
+  overflow:hidden;
+}
+
+#container .element {
+    padding: 20px 25px;
+}
+
+#container .element {
+    background: rgb(52, 110, 235);
+}
+
+#container .element:nth-child(even) {
+    background: rgb(52, 110, 235);
+}
+  
+//*Style the background*//
+.sliding-background {
+  background: url("bg.png") repeat-x;
+  height: 500px;
+  width: 5076px;
+  animation: slide 60s linear infinite;
+}
+  
+//*Background Animation.*//
+@keyframes .slide {
+  0%{
+    transform: translate3d(0, 0, 0);
+  }
+  100%{
+    transform: translate3d(-1692px, 0, 0); /* The image width */
+  }
+}
+</style>
+  
 <body>
 <div id="NumStore"></div>
 
 <center>
   
+<div id="container">
+<div class="sliding-background"></div>
 <h1>DnD damage generator!</h1>
 <p>A tool for reducing battle time</p>
 
@@ -54,6 +101,7 @@
 <p id="damage"></p><p id="critical?"></p>
 <p id="secondary"></p>
 </center>
+</div>
 
 <script>
 function regularAttack() {
