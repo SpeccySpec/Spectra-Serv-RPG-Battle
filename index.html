@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPG Battle</title>
 </head>
+<title>RPG Battle</title>
   
 <style>
 /*Style the Container*/
@@ -37,7 +37,8 @@
 } 
   
 //*Style the background*//
-img {
+.background {
+  background: url("background.png") repeat-x; 
   height: 960px; 
   width: 6000px; 
   animation: slide 60s linear infinite;
@@ -58,7 +59,7 @@ img {
 <div id="NumStore"></div>
 
 <div class="wrapper"> 
-  <img src="background.png" alt="background">
+  <div class="sliding-background"></div> 
 </div>
 
 <center>
