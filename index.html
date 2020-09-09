@@ -82,11 +82,11 @@ function regularAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - (defense/2));
+  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - defense);
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
     if (result < 1) {
-      result = 1
+      result = 1;
     }
     document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
   } else {
@@ -129,11 +129,11 @@ function superAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.round((basedmg + (strength/2) + (weapon/2)) - defense/4);
+  var result = Math.round((basedmg + (strength/2) + (weapon/2));
   var dodgechance = Math.random();
-  if (dodgechance < 0.95) {
+  if (dodgechance < 0.98) {
     if (result < 1) {
-      result = 1
+      result = 1;
     }
     document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
   } else {
