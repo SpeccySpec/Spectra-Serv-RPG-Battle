@@ -250,7 +250,7 @@ function multiAttack() {
      var atk4 = Math.floor(Math.random() * (12 - 1 + 1) + 1);
      var atk5 = Math.floor(Math.random() * (13 - 1 + 1) + 1);
   }
-  var totalatk = ((atk1/1) + (atk2/1) + (atk3/1) + (atk4/1) + (atk5/1))
+  var totalatk = (((atk1/1) + (strength/1) + (weapon/1)) + ((atk2/1) + (strength/1) + (weapon/1)) + ((atk3/1) + (strength/1) + (weapon/1)) + ((atk4/1) + (strength/1) + (weapon/1)) + ((atk5/1) + (strength/1) + (weapon/1)))
   var crit = Math.random();
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
@@ -280,7 +280,7 @@ function multiAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  var result = Math.floor(totalatk + (strength/1) + (weapon/1) - defense);
+  var result = Math.floor(totalatk - defense);
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
 	  if (result < 1) {
