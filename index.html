@@ -228,19 +228,19 @@ function multiAttack() {
   var defense = document.getElementById("defense").value;
   var list = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]; 
   var atkcount = list[Math.floor(Math.random() * (10 - 1 + 1) + 1)];
-  if atkcount == 2 {
+  if (atkcount == 2) {
      var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk3 = 0
      var atk4 = 0
      var atk5 = 0
-  } else if atkcount == 3 {
+  } else if (atkcount == 3) {
      var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk4 = 0
      var atk5 = 0
-  } else if atkcount == 4 {
+  } else if (atkcount == 4) {
      var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
@@ -289,11 +289,11 @@ function multiAttack() {
 	  if (result < 1) {
 	    result = 1;
 	  }
-	  if atkcount == 2 {
+	  if (atkcount == 2) {
 	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " without modifiers)";
-	  } else if atkcount == 3 {
+	  } else if (atkcount == 3) {
 	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " without modifiers)";
-	  } else if atkcount == 4 {
+	  } else if (atkcount == 5) {
 	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " without modifiers)";
 	  } else {
 	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " without modifiers)";
