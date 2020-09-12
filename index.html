@@ -158,8 +158,12 @@
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
 
+<p>Multi Attack?</p>
+<input type="checkbox" id="multiattack" name="multi" value="multi" checked>
+
 <p>
-<button onclick="regularAttack()">Calculate Base Damage!</button>
+<button onclick="regularAttack()">Regular Attack!</button>
+<button onclick="multiAttack()">Multi Attack!</button>
 <button onclick="superAttack()">Super Attack!</button>
 </p>
 
@@ -184,7 +188,7 @@ function regularAttack() {
      document.getElementById("critical?").innerHTML = "";
   }
   var effect = Math.random();
-  if (effect > 0.85) {
+  if ((effect > 0.85) & (crit <= 0.85)) {
      if (document.getElementById("element").value == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
      } else if (document.getElementById("element").value == "fire") {
@@ -215,6 +219,99 @@ function regularAttack() {
     }
   }
 }
+	
+function multiAttack() {
+  document.getElementById("damage").innerHTML = "";
+  document.getElementById("secondary").innerHTML = "";
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  List<Integer> list = new ArrayList<>(); 
+  list.add(2); 
+  list.add(2); 
+  list.add(2); 
+  list.add(3); 
+  list.add(3); 
+  list.add(4);
+  list.add(5);
+  var atkcount = list.get(rand.nextInt(list.size()));
+  if atkcount == 2 {
+     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk3 = 0
+     var atk4 = 0
+     var atk5 = 0
+  } else if atkcount == 3 {
+     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk4 = 0
+     var atk5 = 0
+  } else if atkcount == 4 {
+     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk4 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk5 = 0
+  } else {
+     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+     var atk3 = Math.floor(Math.random() * (11 - 1 + 1) + 1);
+     var atk4 = Math.floor(Math.random() * (12 - 1 + 1) + 1);
+     var atk5 = Math.floor(Math.random() * (13 - 1 + 1) + 1);
+  }
+  var totalatk = ((atk1/1) + (atk2/1) + (atk3/1) + (atk4/1) + (atk5/1)
+  var crit = Math.random();
+  if (crit > 0.85) {
+     document.getElementById("critical?").innerHTML = "(Critical)";
+     atk1 = Math.floor(atk1 + (atk1 / 2));
+     atk2 = Math.floor(atk2 + (atk2 / 2));
+     atk3 = Math.floor(atk3 + (atk3 / 2));
+     atk4 = Math.floor(atk4 + (atk4 / 2));
+     atk5 = Math.floor(atk5 + (atk5 / 2));
+  } else {
+     document.getElementById("critical?").innerHTML = "";
+  }
+  var effect = Math.random();
+  if ((effect > 0.85) & (crit <= 0.85)) {
+     if (document.getElementById("element").value == "sharp") {
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
+     } else if (document.getElementById("element").value == "fire") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
+     } else if (document.getElementById("element").value == "ice") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
+     } else if (document.getElementById("element").value == "electric") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
+     } else if (document.getElementById("element").value == "poison") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     }
+  }
+  if (document.getElementById("element").value == "nuclear") {
+    basedmg = Math.round(basedmg*2);
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
+  }
+  var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
+  var dodgechance = Math.random();
+  if (dodgechance < 0.95) {
+	  if (result < 1) {
+	    result = 1;
+	  }
+	  if atkcount == 2 {
+	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " without modifiers)";
+	  } else if atkcount == 3 {
+	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " without modifiers)";
+	  } else if atkcount == 4 {
+	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " without modifiers)";
+	  } else {
+	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " without modifiers)";
+	  }
+  } else {
+    document.getElementById("damage").innerHTML = "It was dodged!";
+    if (crit > 0.85) {
+      document.getElementById("critical?").innerHTML = "(Missed crit :()";
+    }
+  }
+}
   
 function superAttack() {
   document.getElementById("damage").innerHTML = "";
@@ -231,7 +328,7 @@ function superAttack() {
      document.getElementById("critical?").innerHTML = "";
   }
   var effect = Math.random();
-  if (effect > 0.85) {
+  if ((effect > 0.85) & (crit <= 0.85)) {
      if (document.getElementById("element").value == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
      } else if (document.getElementById("element").value == "fire") {
