@@ -282,18 +282,15 @@ function multiAttack() {
   }
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
-	  if (result < 1) {
-	    result = 1;
-	  }
-	  if (atkcount == 2) {
-	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
-	  } else if (atkcount == 3) {
-	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " total)";
-	  } else if (atkcount == 5) {
-	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " total)";
-	  } else {
-	     document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " total)";
-	  }
+    if (atkcount == 2) {
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
+    } else if (atkcount == 3) {
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " total)";
+    } else if (atkcount == 5) {
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " total)";
+    } else {
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " total)";
+    }
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
