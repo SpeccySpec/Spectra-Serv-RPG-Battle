@@ -226,15 +226,8 @@ function multiAttack() {
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
-  List<Integer> list = new ArrayList<>(); 
-  list.add(2); 
-  list.add(2); 
-  list.add(2); 
-  list.add(3); 
-  list.add(3); 
-  list.add(4);
-  list.add(5);
-  var atkcount = list.get(rand.nextInt(list.size()));
+  var list = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]; 
+  var atkcount = list[Math.floor(Math.random() * (10 - 1 + 1) + 1)];
   if atkcount == 2 {
      var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
      var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
