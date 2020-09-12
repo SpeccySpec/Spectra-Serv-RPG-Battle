@@ -154,6 +154,9 @@
   <option value="stardust">Stardust</option>
   <option value="mystical">Mystical</option>
 </select>
+	
+<p>Enemy HP:</p>
+<input type="number" id="opphp" name="hp" min="1" max="1000">
 
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
@@ -215,6 +218,7 @@ function regularAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
+  document.getElementById("opphp").value = ($ - result)
 }
 	
 function multiAttack() {
@@ -277,7 +281,6 @@ function multiAttack() {
      }
   }
   if (document.getElementById("element").value == "nuclear") {
-    basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   var dodgechance = Math.random();
@@ -286,7 +289,7 @@ function multiAttack() {
       document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
     } else if (atkcount == 3) {
       document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " total)";
-    } else if (atkcount == 5) {
+    } else if (atkcount == 4) {
       document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " total)";
     } else {
       document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " total)";
@@ -297,6 +300,7 @@ function multiAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
+  document.getElementById("totalatk").value = ($ - result)
 }
   
 function superAttack() {
@@ -344,6 +348,7 @@ function superAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
+  document.getElementById("opphp").value = ($ - result)
 }
 </script>
 </body>
