@@ -53,14 +53,82 @@
     transform: translate3d(-1692px, 0, 0); /* The image width */
   }
 }
+	
+/* We reset things. */
+body {
+  margin: 0;
+  font: normal 75% Arial, Helvetica, sans-serif;
+}
+
+canvas {
+  display: block;
+  vertical-align: bottom;
+}
+
+/* We contain the Particles. */
+#particles {
+  z-index: -100;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-bg);
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 50% 50%;
+}
+
+/* We get the particle count. */
+.count-particles {
+  background: var(--black);
+  position: absolute;
+  top: 3.024rem;
+  left: 0;
+  width: 5.04rem;
+  color: var(--select);
+  font-size: .8em;
+  text-align: left;
+  text-indent: 0.252rem;
+  line-height: 0.882rem;
+  padding-bottom: 0.126rem;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+
+.js-count-particles {
+  font-size: 1.1em;
+}
+
+#stats, .count-particles {
+  -webkit-user-select: none;
+  margin-top: 0.315rem;
+  margin-left: 0.315rem;
+}
+
+#stats {
+  border-radius: 0.189rem 0.189rem 0 0;
+  overflow: hidden;
+}
+
+.count-particles {
+  border-radius: 0 0 0.189rem 0.189rem;
+}
+
 </style>
   
 <body style="background-color:gray;">
+<!-- Store some Variables. -->
 <div id="NumStore"></div>
 
+<!-- Background (Not working) -->
 <div id="wrapper"> 
   <div id="background"></div> 
 </div>
+	
+<!-- particles.js container -->
+<div id="particles-js"></div>
+<!-- particles.js driver -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <center>
 <div id="container">
