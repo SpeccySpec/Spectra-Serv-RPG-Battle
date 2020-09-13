@@ -165,6 +165,7 @@
 <button onclick="regularAttack()">Regular Attack!</button>
 <button onclick="multiAttack()">Multi Attack!</button>
 <button onclick="superAttack()">Super Attack!</button>
+<button onclick="randChance()">Random Chance</button>
 </p>
 
 <p id="damage"></p><p id="critical?"></p>
@@ -349,6 +350,17 @@ function superAttack() {
     }
   }
   document.getElementById("opphp").value = (document.getElementById("opphp").value - result)
+}
+
+function randChance() {
+  var chance = Math.random();
+  if (chance > 0.85) {
+     document.getElementById("damage").innerHTML = "Returned True."
+     return true
+  } else {
+     document.getElementById("damage").innerHTML = "Returned False."
+     return false
+  }
 }
 </script>
 </body>
