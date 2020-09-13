@@ -322,7 +322,7 @@ function regularAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == Record) {
+  if (document.getElementById("record").value == true) {
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
   }
 }
@@ -406,7 +406,7 @@ function multiAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == Record) {
+  if (document.getElementById("record").value == true) {
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (totalatk/1))
   }
 }
@@ -532,7 +532,7 @@ function superAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == Record) {
+  if (document.getElementById("record").value == true) {
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
   }
 }
