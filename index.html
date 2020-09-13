@@ -261,7 +261,7 @@ function regularAttack() {
     if (enemyelement == "grass") {
       effective = true
     }
-    if (enemyelement == "ice") {
+    if ((enemyelement == "ice") || (enemyelement == "water")) {
       resist = true
     }
   } else if (atkelement == "electric") {
@@ -472,7 +472,7 @@ function superAttack() {
     if (enemyelement == "grass") {
       effective = true
     }
-    if (enemyelement == "ice") {
+    if ((enemyelement == "ice") || (enemyelement == "water")) {
       resist = true
     }
   } else if (atkelement == "electric") {
