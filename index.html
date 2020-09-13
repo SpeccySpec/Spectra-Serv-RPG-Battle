@@ -304,10 +304,10 @@ function regularAttack() {
     if (result < 1) {
       result = 1;
     }
-    if (effective = true) {
+    if (effective == true) {
       result = (result*2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (resist = true) {
+    } else if (resist == true) {
       result = (result/2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
     } else {
@@ -510,10 +510,10 @@ function superAttack() {
     if (result < 1) {
       result = 1;
     }
-    if (effective = true) {
+    if (effective == true) {
       result = (result*2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (resist = true) {
+    } else if (resist == true) {
       result = (result/2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
     } else {
