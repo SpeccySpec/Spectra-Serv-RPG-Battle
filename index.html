@@ -137,6 +137,7 @@
 <p>Attack Element:</p>
 <select name="element" id="element">
   <option value="normal">Normal</option>
+  <option value="fighting">Fighting</option>
   <option value="sharp">Sharp</option>
   <option value="blunt">Blunt</option>
   <option value="fire">Fire</option>
@@ -145,18 +146,36 @@
   <option value="electric">Electric</option>
   <option value="wind">Wind</option>
   <option value="geokinesis">Geokinesis</option>
-  <option value="fighting">Fighting</option>
   <option value="psychic">Psychic</option>
   <option value="dark">Dark</option>
   <option value="poison">Poison</option>
-  <option value="nuclear">Nuclear</option>
   <option value="light">Light</option>
+  <option value="ki">Ki</option>
+  <option value="nuclear">Nuclear</option>
   <option value="stardust">Stardust</option>
   <option value="mystical">Mystical</option>
 </select>
 	
 <p>Enemy HP:</p>
 <input type="number" id="opphp" name="hp" min="1" max="1000">
+	
+<p>Enemy Element:</p>
+<select name="enemyelement" id="oppelement">
+  <option value="normal">Normal</option>
+  <option value="fighting">Fighting</option>
+  <option value="fire">Fire</option>
+  <option value="water">Water</option>
+  <option value="ice">Ice</option>
+  <option value="electric">Electric</option>
+  <option value="wind">Wind</option>
+  <option value="rock">Rock</option>
+  <option value="psychic">Psychic</option>
+  <option value="dark">Dark</option>
+  <option value="light">Light</option>
+  <option value="poison">Poison</option>
+  <option value="stardust">Stardust</option>
+  <option value="mystical">Mystical</option>
+</select>
 
 <p>Enemy Defense:</p>
 <input type="number" id="defense" name="def" min="1" max="5">
@@ -181,38 +200,119 @@ function regularAttack() {
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
   var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
+  var atkelement = document.getElementById("element").value
+  var enemyelement = document.getElementById("oppelement").value
   var crit = Math.random();
+  // Occasional critical hits
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
      basedmg = Math.floor(basedmg + (basedmg / 2));
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
+  // Some types have secondary effects.
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (document.getElementById("element").value == "sharp") {
+     if (atkelement == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (document.getElementById("element").value == "fire") {
+     } else if (atkelement == "fire") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (document.getElementById("element").value == "ice") {
+     } else if (atkelement == "ice") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (document.getElementById("element").value == "electric") {
+     } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (document.getElementById("element").value == "poison") {
+     } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
      }
   }
-  if (document.getElementById("element").value == "nuclear") {
+  // Nuclear does double damage.
+  if (atkelement == "nuclear") {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+  // Now check for effective moves.
+  var effective = false
+  var resist = false
+  if ((atkelement == "sharp") || (atkelement == "blunt")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") {
+      resist = true
+    }
+  } else if (atkelement == "fire") {
+    if ((enemyelement == "ice") || (enemyelement == "grass")) {
+      effective = true
+    }
+    if ((enemyelement == "fire") || (enemyelement == "rock")) {
+      resist = true
+    }
+  } else if (atkelement == "water") {
+    if ((enemyelement == "fire") || (enemyelement == "rock") || (enemyelement == "stardust")) {
+      effective = true
+    }
+    if ((enemyelement == "water") || (enemyelement == "grass") || (enemyelement == "ice")) {
+      resist = true
+    }
+  } else if (atkelement == "ice") {
+    if (enemyelement == "grass") {
+      effective = true
+    }
+    if (enemyelement == "ice") {
+      resist = true
+    }
+  } else if (atkelement == "electric") {
+    if (enemyelement == "water") {
+      effective = true
+    }
+    if ((enemyelement == "electric") || (enemyelement == "rock")) {
+      resist = true
+    }
+  } else if (atkelement == "geokinesis") {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if (enemyelement == "rock") {
+      resist = true
+    }
+  } else if (atkelement == "fighting") {
+    if ((enemyelement == "ice") || (enemyelement == "rock")) {
+      effective = true
+    }
+    if (enemyelement == "fighting") {
+      resist = true
+    }
+  } else if (atkelement == "psychic") {
+    if (enemyelement == "fighting") {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "light")) {
+      resist = true
+    }
+  } else if (atkelement == "dark") {
+    if ((enemyelement == "psychic") || (enemyelement == "light")) {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "psychic")) {
+      resist = true
+    }
+  }
+  // That took ages! Good lord... Now i have to copypaste it to everything.
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
     if (result < 1) {
       result = 1;
     }
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+    if (effective = true) {
+      result = (result*2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
+    } else if (resist = true) {
+      result = (result/2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
+    } else {
+      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+    }
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
@@ -311,6 +411,8 @@ function superAttack() {
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
   var basedmg = Math.floor(Math.random() * (80 - 1 + 1) + 1);
+  var atkelement = document.getElementById("element").value
+  var enemyelement = document.getElementById("oppelement").value
   var crit = Math.random();
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
@@ -336,13 +438,87 @@ function superAttack() {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+  var effective = false
+  var resist = false
+  if ((atkelement == "sharp") || (atkelement == "blunt")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") {
+      resist = true
+    }
+  } else if (atkelement == "fire") {
+    if ((enemyelement == "ice") || (enemyelement == "grass")) {
+      effective = true
+    }
+    if ((enemyelement == "fire") || (enemyelement == "rock")) {
+      resist = true
+    }
+  } else if (atkelement == "water") {
+    if ((enemyelement == "fire") || (enemyelement == "rock") || (enemyelement == "stardust")) {
+      effective = true
+    }
+    if ((enemyelement == "water") || (enemyelement == "grass") || (enemyelement == "ice")) {
+      resist = true
+    }
+  } else if (atkelement == "ice") {
+    if (enemyelement == "grass") {
+      effective = true
+    }
+    if (enemyelement == "ice") {
+      resist = true
+    }
+  } else if (atkelement == "electric") {
+    if (enemyelement == "water") {
+      effective = true
+    }
+    if ((enemyelement == "electric") || (enemyelement == "rock")) {
+      resist = true
+    }
+  } else if (atkelement == "geokinesis") {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if (enemyelement == "rock") {
+      resist = true
+    }
+  } else if (atkelement == "fighting") {
+    if ((enemyelement == "ice") || (enemyelement == "rock")) {
+      effective = true
+    }
+    if (enemyelement == "fighting") {
+      resist = true
+    }
+  } else if (atkelement == "psychic") {
+    if (enemyelement == "fighting") {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "light")) {
+      resist = true
+    }
+  } else if (atkelement == "dark") {
+    if ((enemyelement == "psychic") || (enemyelement == "light")) {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "psychic")) {
+      resist = true
+    }
+  }
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
   if (dodgechance < 0.98) {
     if (result < 1) {
       result = 1;
     }
-    document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+    if (effective = true) {
+      result = (result*2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
+    } else if (resist = true) {
+      result = (result/2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
+    } else {
+      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+    }
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
