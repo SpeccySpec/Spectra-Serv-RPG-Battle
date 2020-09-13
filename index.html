@@ -322,9 +322,9 @@ function regularAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == true) {
-    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-  }
+//if (document.getElementById("record").value == true) {
+  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
+//}
 }
 	
 function multiAttack() {
@@ -364,11 +364,11 @@ function multiAttack() {
   var crit = Math.random();
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
-     atk1 = Math.floor(atk1 + (atk1 / 2));
-     atk2 = Math.floor(atk2 + (atk2 / 2));
-     atk3 = Math.floor(atk3 + (atk3 / 2));
-     atk4 = Math.floor(atk4 + (atk4 / 2));
-     atk5 = Math.floor(atk5 + (atk5 / 2));
+     atk1 = Math.floor((atk1/1) + (atk1 / 2));
+     atk2 = Math.floor((atk2/1) + (atk2 / 2));
+     atk3 = Math.floor((atk3/1) + (atk3 / 2));
+     atk4 = Math.floor((atk4/1) + (atk4 / 2));
+     atk5 = Math.floor((atk5/1) + (atk5 / 2));
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
@@ -392,13 +392,13 @@ function multiAttack() {
   var dodgechance = Math.random();
   if (dodgechance < 0.95) {
     if (atkcount == 2) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + (totalatk/1) + " total)";
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
     } else if (atkcount == 3) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + (totalatk/1) + " total)";
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " total)";
     } else if (atkcount == 4) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + (totalatk/1) + " total)";
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " total)";
     } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + (totalatk/1) + " total)";
+      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " total)";
     }
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
@@ -406,9 +406,9 @@ function multiAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == true) {
-    document.getElementById("opphp").value = (document.getElementById("opphp").value - (totalatk/1))
-  }
+//if (document.getElementById("record").value == true) {
+  document.getElementById("opphp").value = (document.getElementById("opphp").value - (totalatk/1))
+//}
 }
   
 function superAttack() {
@@ -532,9 +532,9 @@ function superAttack() {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-  if (document.getElementById("record").value == true) {
-    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-  }
+//if (document.getElementById("record").value == true) {
+  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
+//}
 }
 
 function randChance() {
