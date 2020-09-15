@@ -312,7 +312,7 @@ function regularAttack() {
     }
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
-      result = result - statmod
+      result = result - (statmod/1)
     }
     if (effective == true) {
       result = (result*2)
