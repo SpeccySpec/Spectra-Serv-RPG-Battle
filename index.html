@@ -133,6 +133,9 @@
 
 <p>Input Weapon Proficiency:
 <input type="number" id="weapon" name="weap" min="1" max="10"></p>
+	
+<p>Input Stat Modifiers:
+<input type="number" id="statmod" name="stats" min="-6" max="6"></p>
   
 <p>Attack Element:
 <select name="element" id="element">
@@ -306,6 +309,10 @@ function regularAttack() {
   if (dodgechance < 0.95) {
     if (result < 1) {
       result = 1;
+    }
+    var statmod = document.getElementById("statmod").value
+    if (statmod != 0) {
+      result = result - statmod
     }
     if (effective == true) {
       result = (result*2)
