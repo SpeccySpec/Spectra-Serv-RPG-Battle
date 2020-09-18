@@ -302,6 +302,13 @@ function regularAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "psychic")) {
       resist = true
     }
+  } else if (atkelement == "poison") {
+    if ((enemyelement == "water") || (enemyelement == "grass")) {
+      effective = true
+    }
+    if ((enemyelement == "nuclear") || (enemyelement == "poison") || (enemyelement == "rock")) {
+      resist = true
+    }
   }
   // That took ages! Good lord... Now i have to copypaste it to everything.
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
@@ -367,7 +374,7 @@ function multiAttack() {
      var atk4 = Math.floor(Math.random() * (12 - 1 + 1) + 1);
      var atk5 = Math.floor(Math.random() * (13 - 1 + 1) + 1);
   }
-  var totalatk = (((atk1/1) + (strength/1) + (weapon/1)) + ((atk2/1) + (strength/1) + (weapon/1)) + ((atk3/1) + (strength/1) + (weapon/1)) + ((atk4/1) + (strength/1) + (weapon/1)) + ((atk5/1) + (strength/1) + (weapon/1)))
+  var totalatk = ((atk1/1)  + (atk2/1) + (atk3/1) + (atk4/1) + (atk5/1))
   var crit = Math.random();
   if (crit > 0.85) {
      document.getElementById("critical?").innerHTML = "(Critical)";
