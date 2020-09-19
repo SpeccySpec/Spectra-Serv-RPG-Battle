@@ -32,12 +32,7 @@
 #container .element:nth-child(even) {
     background: rgb(52, 110, 235);
 }
-	
-//*Style a wrapper*//
-#wrapper { 
-  overflow: hidden; 
-} 
-  
+
 //*Style the background*//
 #background {
   position: fixed;
@@ -108,9 +103,7 @@
 <div id="NumStore"></div>
 
 <!-- Background (Not working) -->
-<div id="wrapper"> 
-  <div id="background"><img src="background.png" alt=""></div> 
-</div>
+<img  id="background" src="background.png" alt="">
 	
 <!-- particles.js container -->
 <div id="particles-js"></div>
@@ -315,7 +308,7 @@ function regularAttack() {
     }
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
-      result = result - (statmod/1)
+      result = (result - (statmod/2))
     }
     if (effective == true) {
       result = (result*2)
@@ -524,6 +517,10 @@ function superAttack() {
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
   if (dodgechance < 0.98) {
+    var statmod = document.getElementById("statmod").value
+    if (statmod != 0) {
+      result = (result - (statmod/2))
+    }
     if (result < 1) {
       result = 1;
     }
