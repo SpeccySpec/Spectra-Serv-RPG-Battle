@@ -40,25 +40,21 @@
   
 //*Style the background*//
 #background {
-  background: url("https://raw.githubusercontent.com/SpeccySpec/Spectra-Serv-RPG-Battle/master/background.png") repeat-x; 
-  height: 960px; 
-  width: 6000px; 
-  animation: slide 60s linear infinite;
-}
-  
-//*Background Animation.*//
-@keyframes .slide {
-  0%{
-    transform: translate3d(0, 0, 0);
-  }
-  100%{
-    transform: translate3d(-1692px, 0, 0); /* The image width */
-  }
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  z-index: -2;
 }
 
 /* We contain the Particles. */
 #particles {
-  z-index: -100;
+  z-index: -1;
   position: fixed;
   width: 100%;
   height: 100%;
