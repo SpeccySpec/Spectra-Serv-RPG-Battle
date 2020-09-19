@@ -308,7 +308,7 @@ function regularAttack() {
     }
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
-      result = (result - (statmod/2))
+      result = (result + (statmod/2))
     }
     if (effective == true) {
       result = (result*2)
@@ -519,7 +519,7 @@ function superAttack() {
   if (dodgechance < 0.98) {
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
-      result = (result - (statmod/2))
+      result = (result + (statmod/2))
     }
     if (result < 1) {
       result = 1;
