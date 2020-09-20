@@ -362,7 +362,7 @@ function regularAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "poison")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "light")) {
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
       resist = true
     }
   } else if (atkelement == "dark") {
@@ -577,14 +577,14 @@ function superAttack() {
     if ((enemyelement == "ice") || (enemyelement == "rock")) {
       effective = true
     }
-    if (enemyelement == "fighting") {
+    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "grass")) {
       resist = true
     }
   } else if (atkelement == "psychic") {
     if ((enemyelement == "fighting") || (enemyelement == "poison")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "light")) {
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
       resist = true
     }
   } else if (atkelement == "dark") {
@@ -592,6 +592,13 @@ function superAttack() {
       effective = true
     }
     if ((enemyelement == "fighting") || (enemyelement == "psychic")) {
+      resist = true
+    }
+  } else if (atkelement == "poison") {
+    if ((enemyelement == "water") || (enemyelement == "grass")) {
+      effective = true
+    }
+    if ((enemyelement == "nuclear") || (enemyelement == "poison") || (enemyelement == "rock")) {
       resist = true
     }
   }
