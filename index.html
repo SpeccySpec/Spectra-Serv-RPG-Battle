@@ -95,6 +95,25 @@
 .count-particles {
   border-radius: 0 0 0.189rem 0.189rem;
 }
+	
+/*Button Styles*/
+.atkbutton {
+    color: -internal-light-dark(buttontext, rgb(255, 125, 74));
+    background-color: -internal-light-dark(rgb(255, 72, 0), rgb(89, 15, 0));
+    cursor: crosshair;
+}
+	
+.superatkbutton {
+    color: -internal-light-dark(buttontext, rgb(255, 244, 117));
+    background-color: -internal-light-dark(rgb(255, 235, 0), rgb(168, 123, 0));
+    cursor: cell;
+}
+	
+.multiatkbutton {
+    color: -internal-light-dark(buttontext, rgb(143, 248, 255));
+    background-color: -internal-light-dark(rgb(0, 221, 255), rgb(0, 101, 163));
+    cursor: move;
+}
 
 </style>
   
@@ -176,10 +195,10 @@
 <input type="checkbox" id="record" name="takehp" value="Record" checked></p>
 
 <p>
-<button onclick="regularAttack()">Regular Attack!</button>
-<button onclick="multiAttack()">Multi Attack!</button>
-<button onclick="superAttack()">Super Attack!</button>
-<button onclick="randChance()">Random Chance</button>
+<button class="atkbutton" onclick="regularAttack()">Regular Attack!</button>
+<button class="superatkbutton" onclick="multiAttack()">Multi Attack!</button>
+<button class="multiatkbutton" onclick="superAttack()">Super Attack!</button>
+<button class="atkbutton" onclick="randChance()">Random Chance</button>
 </p>
 
 <p id="damage"></p><p id="critical?"></p>
