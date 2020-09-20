@@ -214,6 +214,7 @@
   <option value="electric">Electric</option>
   <option value="wind">Wind</option>
   <option value="geokinesis">Geokinesis</option>
+  <option value="grass">Grass</option>
   <option value="psychic">Psychic</option>
   <option value="dark">Dark</option>
   <option value="poison">Poison</option>
@@ -236,7 +237,8 @@
   <option value="ice">Ice</option>
   <option value="electric">Electric</option>
   <option value="wind">Wind</option>
-  <option value="rock">Rock</option>
+  <option value="rock">Rock</option
+  <option value="grass">Grass</option>
   <option value="psychic">Psychic</option>
   <option value="dark">Dark</option>
   <option value="light">Light</option>
@@ -353,7 +355,7 @@ function regularAttack() {
     if ((enemyelement == "ice") || (enemyelement == "rock")) {
       effective = true
     }
-    if (enemyelement == "fighting") {
+    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "grass")) {
       resist = true
     }
   } else if (atkelement == "psychic") {
