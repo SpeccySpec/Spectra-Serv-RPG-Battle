@@ -257,8 +257,15 @@
 
 <p>
 <button class="atkbutton" onclick="regularAttack()">Regular Attack!</button>
-<button class="superatkbutton" onclick="multiAttack()">Multi Attack!</button>
-<button class="multiatkbutton" onclick="superAttack()">Super Attack!</button>
+<button class="multiatkbutton" onclick="multiAttack()">Multi Attack!</button>
+</p>
+	
+<p>
+<button class="superatkbutton" onclick="superAttack()">Super Attack!</button>
+<button class="superatkbutton" onclick="ultraSuperAttack()">Ultra Super Attack!</button>
+</p>
+
+<p>
 <button class="atkbutton" onclick="randChance()">Random Chance</button>
 </p>
 
@@ -511,6 +518,150 @@ function superAttack() {
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
   var basedmg = Math.floor(Math.random() * (80 - 1 + 1) + 1);
+  var atkelement = document.getElementById("element").value
+  var enemyelement = document.getElementById("oppelement").value
+  var crit = Math.random();
+  if (crit > 0.85) {
+     document.getElementById("critical?").innerHTML = "(Critical)";
+     basedmg = Math.floor(basedmg + (basedmg / 2));
+  } else {
+     document.getElementById("critical?").innerHTML = "";
+  }
+  var effect = Math.random();
+  if ((effect > 0.85) & (crit <= 0.85)) {
+     if (document.getElementById("element").value == "sharp") {
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
+     } else if (document.getElementById("element").value == "fire") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
+     } else if (document.getElementById("element").value == "ice") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
+     } else if (document.getElementById("element").value == "electric") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
+     } else if (document.getElementById("element").value == "poison") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     }
+  }
+  if (document.getElementById("element").value == "nuclear") {
+    basedmg = Math.round(basedmg*2);
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
+  }
+  var effective = false
+  var resist = false
+  if ((atkelement == "sharp") || (atkelement == "blunt")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "fire") {
+    if ((enemyelement == "ice") || (enemyelement == "grass") || (enemyelement == "metal")) {
+      effective = true
+    }
+    if ((enemyelement == "fire") || (enemyelement == "rock")) {
+      resist = true
+    }
+  } else if (atkelement == "water") {
+    if ((enemyelement == "fire") || (enemyelement == "rock") || (enemyelement == "stardust")) {
+      effective = true
+    }
+    if ((enemyelement == "water") || (enemyelement == "grass") || (enemyelement == "ice") || (enemyelement == "poison") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "ice") {
+    if (enemyelement == "grass") {
+      effective = true
+    }
+    if ((enemyelement == "ice") || (enemyelement == "water") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "electric") {
+    if (enemyelement == "water") {
+      effective = true
+    }
+    if ((enemyelement == "electric") || (enemyelement == "rock") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "geokinesis") {
+    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+      effective = true
+    }
+    if ((enemyelement == "rock") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "fighting") {
+    if ((enemyelement == "ice") || (enemyelement == "rock") || (enemyelement == "metal")) {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "grass")) {
+      resist = true
+    }
+  } else if (atkelement == "psychic") {
+    if ((enemyelement == "fighting") || (enemyelement == "poison")) {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
+      resist = true
+    }
+  } else if (atkelement == "dark") {
+    if (enemyelement == "light") {
+      effective = true
+    }
+    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "poison") {
+    if ((enemyelement == "water") || (enemyelement == "grass")) {
+      effective = true
+    }
+    if ((enemyelement == "nuclear") || (enemyelement == "poison") || (enemyelement == "rock") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "metal") {
+    if ((enemyelement == "ice") || (enemyelement == "rock")) {
+      effective = true
+    }
+    if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
+      resist = true
+    }
+  }
+  var result = Math.round(basedmg + (strength/1) + (weapon/1));
+  var dodgechance = Math.random();
+  if (dodgechance < 0.98) {
+    var statmod = document.getElementById("statmod").value
+    if (statmod != 0) {
+      result = (result + (statmod/2))
+    }
+    if (result < 1) {
+      result = 1;
+    }
+    if (effective == true) {
+      result = (result*2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
+    } else if (resist == true) {
+      result = (result/2)
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
+    } else {
+      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+    }
+  } else {
+    document.getElementById("damage").innerHTML = "It was dodged!";
+    if (crit > 0.85) {
+      document.getElementById("critical?").innerHTML = "(Missed crit :()";
+    }
+  }
+//if (document.getElementById("record").value == true) {
+  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
+//}
+}
+	
+function ultraSuperAttack() {
+  document.getElementById("damage").innerHTML = "";
+  document.getElementById("secondary").innerHTML = "";
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var basedmg = Math.floor(Math.random() * (120 - 1 + 1) + 1);
   var atkelement = document.getElementById("element").value
   var enemyelement = document.getElementById("oppelement").value
   var crit = Math.random();
