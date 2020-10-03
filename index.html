@@ -190,9 +190,17 @@
 <div id="container">
 <h1>DnD damage generator!</h1>
 <p>A tool for reducing battle time</p>
-
+	
+<p>Presets:
+Soon</p>
+<!--<select name="select" id="select">
+  <option value="none">None</option>
+</select></p>
+<button onclick="loadPreset()">Load</button> -->
                                                                                    <hr />
-  
+<p>Character Name:
+<input type="text" id="charname" name="charactername"></p>
+
 <p>Input Strength:
 <input type="number" id="strength" name="atk" min="1" max="10"></p>
 
@@ -273,7 +281,7 @@
 <p id="secondary"></p>
 
 	<p>Make notes here if you need to.</p>
-<input type="text" id="1stnote" name="1stnote"><input type="text" id="2ndnote" name="2ndnote"><input type="text" id="3rdnote" name="3rdnote">
+<input type="text" id="1stnote" name="1stnote"><input type="text" id="2ndnote" name="2ndnote">
 </center>
 </div>
 
@@ -807,6 +815,31 @@ function randChance() {
   } else {
      document.getElementById("damage").innerHTML = "Returned False."
      return false
+  }
+}
+	
+function setPreset() {
+  var name = document.getElementById("charname").value;
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var values = {name, strength, weapon, defense};
+  var sel = document.getElementById("select");
+  var opt = document.createElement("option");
+  opt.appendChild(document.createTextNode(name));
+  opt.value = name;
+  sel.appendChild(opt);
+  if (localStorage.calltimes){
+    localStorage.calltimes = Number(localStorage.calltimes)+1
+  } else {
+    localStorage.calltimes = 1
+  }
+  presets[Number(localStorage.calltimes)] = values
+  if (localStorage.presets){
+    localStorage.presets[Number(localStorage.calltimes)] = values
+  } else {
+    localStorage.presets = {}
+    localStorage.presets[Number(localStorage.calltimes)] = values
   }
 }
 </script>
