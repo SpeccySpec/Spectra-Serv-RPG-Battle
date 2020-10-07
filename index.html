@@ -842,6 +842,11 @@ function setPreset() {
     localStorage.presets[Number(localStorage.calltimes)] = values
   }
 }
+
+// Particles
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+  console.log('callback - particles.js config loaded');
+});
 </script>
 </body>
 
