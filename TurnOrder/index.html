@@ -146,10 +146,10 @@ canvas { display: block; vertical-align: bottom; }
 <h1>Generate Turn Order</h1>
 <p>Another tool for reducing battle time</p>
                                                                                    <hr />
-<form action="turnorder.php">
+<form action="turnorder.php" method="get">
   <label for="name">Character Name:</label><br>
   <input type="text" id="name" name="name"><br>
-  <label for="speed">Last name:</label><br>
+  <label for="speed">Speed:</label><br>
   <input type="number" id="speed" name="speed" min="1" max="100"><br><br>
   <input type="submit" value="Submit">
 </form> 
@@ -169,3 +169,11 @@ canvas { display: block; vertical-align: bottom; }
 <p id="displayorder">
 
 <script>
+function addOrder() {
+  var p = document.getElementById("displayorder")
+  p.innerText = p.innerText+", "+document.getElementById("name")
+}
+	
+	
+	
+	
