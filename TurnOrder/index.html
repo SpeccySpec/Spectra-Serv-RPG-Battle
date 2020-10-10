@@ -146,11 +146,13 @@ canvas { display: block; vertical-align: bottom; }
 <h1>Generate Turn Order</h1>
 <p>Another tool for reducing battle time</p>
                                                                                    <hr />
-<!--<p>Character Name:
-<input type="text" id="charname" name="charactername"></p>-->
-
-<p>Speed:
-<input type="number" id="strength" name="atk" min="1" max="10"></p>
+<form action="turnorder.php">
+  <label for="name">Character Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <label for="speed">Last name:</label><br>
+  <input type="number" id="speed" name="speed" min="1" max="100"><br><br>
+  <input type="submit" value="Submit">
+</form> 
 
 <p>
 <button class="turnbutton" onclick="addOrder()">Add To Turn Order!</button>
