@@ -414,6 +414,9 @@ function regularAttack() {
   // That took ages! Good lord... Now i have to copypaste it to everything.
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
   var dodgechance = Math.random();
+  dodgechance = dodgechance+(document.getElementById("agility").value/50);
+  var accurate = (document.getElementById("accuracy").value/50);
+  dodgechance = (dodgechance - accurate);
   if (dodgechance < 0.95) {
     if (result < 1) {
       result = 1;
@@ -505,6 +508,9 @@ function multiAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   var dodgechance = Math.random();
+  dodgechance = dodgechance+(document.getElementById("agility").value/50);
+  var accurate = (document.getElementById("accuracy").value/50);
+  dodgechance = (dodgechance - accurate);
   if (dodgechance < 0.95) {
     if (atkcount == 2) {
       document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
@@ -642,6 +648,9 @@ function superAttack() {
   }
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
+  dodgechance = dodgechance+(document.getElementById("agility").value/50);
+  var accurate = (document.getElementById("accuracy").value/50);
+  dodgechance = (dodgechance - accurate);
   if (dodgechance < 0.98) {
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
@@ -786,6 +795,9 @@ function ultraSuperAttack() {
   }
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
+  dodgechance = dodgechance+(document.getElementById("agility").value/50);
+  var accurate = (document.getElementById("accuracy").value/50);
+  dodgechance = (dodgechance - accurate);
   if (dodgechance < 0.98) {
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
