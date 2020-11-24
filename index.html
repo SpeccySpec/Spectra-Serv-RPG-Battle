@@ -235,6 +235,7 @@ Soon</p>
   <option value="grass">Grass</option>
   <option value="psychic">Psychic</option>
   <option value="dark">Dark</option>
+  <option value="curse">Curse</option>
   <option value="poison">Poison</option>
   <option value="metal">Metal</option>
   <option value="light">Light</option>
@@ -260,6 +261,7 @@ Soon</p>
   <option value="grass">Grass</option>
   <option value="psychic">Psychic</option>
   <option value="dark">Dark</option>
+  <option value="curse">Curse</option>
   <option value="metal">Metal</option>
   <option value="light">Light</option>
   <option value="poison">Poison</option>
@@ -343,7 +345,7 @@ function regularAttack() {
     if ((enemyelement == "ice") || (enemyelement == "fighting")) {
       effective = true
     }
-    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal")) {
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "fire") {
@@ -396,10 +398,10 @@ function regularAttack() {
       resist = true
     }
   } else if (atkelement == "dark") {
-    if (enemyelement == "light") {
+    if ((enemyelement == "light") || (enemyelement == "psychic")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "metal")) {
+    if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "poison") {
@@ -414,6 +416,13 @@ function regularAttack() {
       effective = true
     }
     if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "curse") {
+    if ((enemyelement == "dark") || (enemyelement == "light") || (enemyelement == "psychic")) {
+      effective = true
+    }
+    if ((enemyelement == "curse") || (enemyelement == "fighting") || (enemyelement == "normal") || (enemyelement == "metal")) {
       resist = true
     }
   }
@@ -578,7 +587,7 @@ function superAttack() {
     if ((enemyelement == "ice") || (enemyelement == "fighting")) {
       effective = true
     }
-    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal")) {
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "fire") {
@@ -631,10 +640,10 @@ function superAttack() {
       resist = true
     }
   } else if (atkelement == "dark") {
-    if (enemyelement == "light") {
+    if ((enemyelement == "light") || (enemyelement == "psychic")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "metal")) {
+    if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "poison") {
@@ -649,6 +658,13 @@ function superAttack() {
       effective = true
     }
     if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "curse") {
+    if ((enemyelement == "dark") || (enemyelement == "light") || (enemyelement == "psychic")) {
+      effective = true
+    }
+    if ((enemyelement == "curse") || (enemyelement == "fighting") || (enemyelement == "normal") || (enemyelement == "metal")) {
       resist = true
     }
   }
@@ -725,7 +741,7 @@ function ultraSuperAttack() {
     if ((enemyelement == "ice") || (enemyelement == "fighting")) {
       effective = true
     }
-    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal")) {
+    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "fire") {
@@ -778,10 +794,10 @@ function ultraSuperAttack() {
       resist = true
     }
   } else if (atkelement == "dark") {
-    if (enemyelement == "light") {
+    if ((enemyelement == "light") || (enemyelement == "psychic")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "metal")) {
+    if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
   } else if (atkelement == "poison") {
@@ -796,6 +812,13 @@ function ultraSuperAttack() {
       effective = true
     }
     if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
+      resist = true
+    }
+  } else if (atkelement == "curse") {
+    if ((enemyelement == "dark") || (enemyelement == "light") || (enemyelement == "psychic")) {
+      effective = true
+    }
+    if ((enemyelement == "curse") || (enemyelement == "fighting") || (enemyelement == "normal") || (enemyelement == "metal")) {
       resist = true
     }
   }
@@ -813,7 +836,7 @@ function ultraSuperAttack() {
       result = 1;
     }
     if (effective == true) {
-      result = (result*2)
+      result = (result*3)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
     } else if (resist == true) {
       result = (result/2)
