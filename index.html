@@ -470,7 +470,7 @@ function regularAttack() {
     if (statmod != 0) {
       result = (result + (statmod/2))
     }
-    if (status == "brainwash") {
+    if (status == "brainwashed") {
       if (statuschance > 0.6) {
 	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + basedmg + " damage!";
 	 return true
