@@ -275,8 +275,20 @@ Soon</p>
 <p>Enemy Agility:
 <input type="number" id="agility" name="agl" min="1" max="20"></p>
 	
-<p>Record Damage?
-<input type="checkbox" id="record" name="takehp" value="Record" checked></p>
+<p>Under Status Effect:
+<select name="statuseffect" id="status">
+  <option value="none">None</option>
+  <option value="burn">Burn</option>
+  <option value="freeze">Freeze</option>
+  <option value="poison">Poison</option>
+  <option value="bleed">Bleeding</option>
+  <option value="paralyze">Paralyze</option>
+  <option value="dizziness">Dizziness</option>
+  <option value="fear">Fear</option>
+  <option value="brainwashed">Brainwashed</option>
+  <option value="radiation">Radiation</option>
+  <option value="stardust">Stardust</option>
+</select></p>
 
 <p>
 <button class="atkbutton" onclick="regularAttack()">Regular Attack!</button>
@@ -331,6 +343,8 @@ function regularAttack() {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
      } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     } else if (atkelement == "curse") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
      }
   }
   // Nuclear does double damage.
@@ -363,10 +377,10 @@ function regularAttack() {
       resist = true
     }
   } else if (atkelement == "ice") {
-    if (enemyelement == "grass") {
+    if ((enemyelement == "grass") || (enemyelement == "water")) {
       effective = true
     }
-    if ((enemyelement == "ice") || (enemyelement == "water") || (enemyelement == "metal")) {
+    if ((enemyelement == "ice") || (enemyelement == "metal")) {
       resist = true
     }
   } else if (atkelement == "electric") {
@@ -377,7 +391,7 @@ function regularAttack() {
       resist = true
     }
   } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting") || (enemyelement == "electric")) {
       effective = true
     }
     if ((enemyelement == "rock") || (enemyelement == "metal")) {
@@ -394,7 +408,7 @@ function regularAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "poison")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic") || (enemyelement == "curse") || (enemyelement == "dark")) {
       resist = true
     }
   } else if (atkelement == "dark") {
@@ -428,10 +442,26 @@ function regularAttack() {
   }
   // That took ages! Good lord... Now i have to copypaste it to everything.
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
+  // Apply Status Effects to Attack
+  var status = document.getElementById("status").value
+  if ((status == "burn") || (status == "poison")) {
+    result = (result/2)
+  }
+  if (status == "freeze") {
+    var escapechance = Math.random();
+    if (escapechance > 0.75) {
+      document.getElementById("damage").innerHTML = "Escaped from the ice!";
+      return false
+    } else {
+      document.getElementById("damage").innerHTML = "Frozen Solid!";
+      return false
+    }
+  }
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
   var accurate = (document.getElementById("accuracy").value/50);
   dodgechance = (dodgechance - accurate);
+  var statuschance = Math.random();
   if (dodgechance < 0.95) {
     if (result < 1) {
       result = 1;
@@ -439,6 +469,12 @@ function regularAttack() {
     var statmod = document.getElementById("statmod").value
     if (statmod != 0) {
       result = (result + (statmod/2))
+    }
+    if (status == "brainwash") {
+      if (statuschance > 0.6) == {
+	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + basedmg + " damage!";
+	 return true
+      }
     }
     if (effective == true) {
       result = (result*2)
@@ -449,15 +485,15 @@ function regularAttack() {
     } else {
       document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
     }
+    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
+    return true
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
+    return false
   }
-//if (document.getElementById("record").value == true) {
-  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-//}
 }
 	
 function multiAttack() {
@@ -507,16 +543,18 @@ function multiAttack() {
   }
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (document.getElementById("element").value == "sharp") {
+     if (atkelement == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (document.getElementById("element").value == "fire") {
+     } else if (atkelement == "fire") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (document.getElementById("element").value == "ice") {
+     } else if (atkelement == "ice") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (document.getElementById("element").value == "electric") {
+     } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (document.getElementById("element").value == "poison") {
+     } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     } else if (atkelement == "curse") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
      }
   }
   if (document.getElementById("element").value == "nuclear") {
@@ -563,24 +601,29 @@ function superAttack() {
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
+   // Some types have secondary effects.
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (document.getElementById("element").value == "sharp") {
+     if (atkelement == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (document.getElementById("element").value == "fire") {
+     } else if (atkelement == "fire") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (document.getElementById("element").value == "ice") {
+     } else if (atkelement == "ice") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (document.getElementById("element").value == "electric") {
+     } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (document.getElementById("element").value == "poison") {
+     } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     } else if (atkelement == "curse") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
      }
   }
-  if (document.getElementById("element").value == "nuclear") {
+  // Nuclear does double damage.
+  if (atkelement == "nuclear") {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+  // Now check for effective moves.
   var effective = false
   var resist = false
   if ((atkelement == "sharp") || (atkelement == "blunt")) {
@@ -605,10 +648,10 @@ function superAttack() {
       resist = true
     }
   } else if (atkelement == "ice") {
-    if (enemyelement == "grass") {
+    if ((enemyelement == "grass") || (enemyelement == "water")) {
       effective = true
     }
-    if ((enemyelement == "ice") || (enemyelement == "water") || (enemyelement == "metal")) {
+    if ((enemyelement == "ice") || (enemyelement == "metal")) {
       resist = true
     }
   } else if (atkelement == "electric") {
@@ -619,7 +662,7 @@ function superAttack() {
       resist = true
     }
   } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting") || (enemyelement == "electric")) {
       effective = true
     }
     if ((enemyelement == "rock") || (enemyelement == "metal")) {
@@ -636,7 +679,7 @@ function superAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "poison")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic") || (enemyelement == "curse") || (enemyelement == "dark")) {
       resist = true
     }
   } else if (atkelement == "dark") {
@@ -717,24 +760,29 @@ function ultraSuperAttack() {
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
+  // Some types have secondary effects.
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (document.getElementById("element").value == "sharp") {
+     if (atkelement == "sharp") {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (document.getElementById("element").value == "fire") {
+     } else if (atkelement == "fire") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (document.getElementById("element").value == "ice") {
+     } else if (atkelement == "ice") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (document.getElementById("element").value == "electric") {
+     } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (document.getElementById("element").value == "poison") {
+     } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     } else if (atkelement == "curse") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
      }
   }
-  if (document.getElementById("element").value == "nuclear") {
+  // Nuclear does double damage.
+  if (atkelement == "nuclear") {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+  // Now check for effective moves.
   var effective = false
   var resist = false
   if ((atkelement == "sharp") || (atkelement == "blunt")) {
@@ -759,10 +807,10 @@ function ultraSuperAttack() {
       resist = true
     }
   } else if (atkelement == "ice") {
-    if (enemyelement == "grass") {
+    if ((enemyelement == "grass") || (enemyelement == "water")) {
       effective = true
     }
-    if ((enemyelement == "ice") || (enemyelement == "water") || (enemyelement == "metal")) {
+    if ((enemyelement == "ice") || (enemyelement == "metal")) {
       resist = true
     }
   } else if (atkelement == "electric") {
@@ -773,7 +821,7 @@ function ultraSuperAttack() {
       resist = true
     }
   } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
+    if ((enemyelement == "ice") || (enemyelement == "fighting") || (enemyelement == "electric")) {
       effective = true
     }
     if ((enemyelement == "rock") || (enemyelement == "metal")) {
@@ -790,7 +838,7 @@ function ultraSuperAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "poison")) {
       effective = true
     }
-    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic")) {
+    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic") || (enemyelement == "curse") || (enemyelement == "dark")) {
       resist = true
     }
   } else if (atkelement == "dark") {
