@@ -457,7 +457,7 @@ function regularAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   // Now check for effective moves.
-  local effective = typeEffect(atkelement, enemyelement)
+  var effective = typeEffect(atkelement, enemyelement)
   // Get results
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
   // Apply Status Effects to Attack
@@ -643,7 +643,7 @@ function superAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   // Now check for effective moves.
-  local effective = typeEffect(atkelement, enemyelement)
+  var effective = typeEffect(atkelement, enemyelement)
   // Now get the result
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
@@ -717,7 +717,7 @@ function ultraSuperAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   // Now check for effective moves.
-  local effective = typeEffect(atkelement, enemyelement)
+  var effective = typeEffect(atkelement, enemyelement)
   // Now get the result.
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
