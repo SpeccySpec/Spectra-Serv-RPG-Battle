@@ -313,46 +313,7 @@ Soon</p>
 </div>
 
 <script>
-function regularAttack() {
-  document.getElementById("damage").innerHTML = "";
-  document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
-  var defense = document.getElementById("defense").value;
-  var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
-  var atkelement = document.getElementById("element").value
-  var enemyelement = document.getElementById("oppelement").value
-  var crit = Math.random();
-  // Occasional critical hits
-  if (crit > 0.85) {
-     document.getElementById("critical?").innerHTML = "(Critical)";
-     basedmg = Math.floor(basedmg + (basedmg / 2));
-  } else {
-     document.getElementById("critical?").innerHTML = "";
-  }
-  // Some types have secondary effects.
-  var effect = Math.random();
-  if ((effect > 0.85) & (crit <= 0.85)) {
-     if (atkelement == "sharp") {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (atkelement == "fire") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (atkelement == "ice") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (atkelement == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (atkelement == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if (atkelement == "curse") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
-     }
-  }
-  // Nuclear does double damage.
-  if (atkelement == "nuclear") {
-    basedmg = Math.round(basedmg*2);
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
-  }
-  // Now check for effective moves.
+function typeEffect(atkelement, enemyelement) {
   var effective = false
   var resist = false
   if ((atkelement == "sharp") || (atkelement == "blunt")) {
@@ -418,6 +379,13 @@ function regularAttack() {
     if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
       resist = true
     }
+  } else if (atkelement == "light") {
+    if ((enemyelement == "dark") || (enemyelement == "curse")) {
+      effective = true
+    }
+    if ((enemyelement == "light") || (enemyelement == "metal") || (enemyelement == "psychic")) {
+      resist = true
+    }
   } else if (atkelement == "poison") {
     if ((enemyelement == "water") || (enemyelement == "grass")) {
       effective = true
@@ -440,7 +408,57 @@ function regularAttack() {
       resist = true
     }
   }
-  // That took ages! Good lord... Now i have to copypaste it to everything.
+	
+  if (effective == true) {
+    return "effective"
+  } else if (resist == true) {
+    return "resist"
+  } else {
+    return "none"
+  }
+}
+function regularAttack() {
+  document.getElementById("damage").innerHTML = "";
+  document.getElementById("secondary").innerHTML = "";
+  var strength = document.getElementById("strength").value;
+  var weapon = document.getElementById("weapon").value;
+  var defense = document.getElementById("defense").value;
+  var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
+  var atkelement = document.getElementById("element").value
+  var enemyelement = document.getElementById("oppelement").value
+  var crit = Math.random();
+  // Occasional critical hits
+  if (crit > 0.85) {
+     document.getElementById("critical?").innerHTML = "(Critical)";
+     basedmg = Math.floor(basedmg + (basedmg / 2));
+  } else {
+     document.getElementById("critical?").innerHTML = "";
+  }
+  // Some types have secondary effects.
+  var effect = Math.random();
+  if ((effect > 0.85) & (crit <= 0.85)) {
+     if (atkelement == "sharp") {
+        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
+     } else if (atkelement == "fire") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
+     } else if (atkelement == "ice") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
+     } else if (atkelement == "electric") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
+     } else if (atkelement == "poison") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
+     } else if (atkelement == "curse") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
+     }
+  }
+  // Nuclear does double damage.
+  if (atkelement == "nuclear") {
+    basedmg = Math.round(basedmg*2);
+    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
+  }
+  // Now check for effective moves.
+  local effective = typeEffect(atkelement, enemyelement)
+  // Get results
   var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
@@ -476,10 +494,10 @@ function regularAttack() {
 	 return true
       }
     }
-    if (effective == true) {
+    if (effective == "effective") {
       result = (result*2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (resist == true) {
+    } else if (effective == "resist") {
       result = (result/2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
     } else {
@@ -560,6 +578,7 @@ function multiAttack() {
   if (document.getElementById("element").value == "nuclear") {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+  local effective = typeEffect(atkelement, enemyelement)
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
   var accurate = (document.getElementById("accuracy").value/50);
@@ -624,93 +643,8 @@ function superAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   // Now check for effective moves.
-  var effective = false
-  var resist = false
-  if ((atkelement == "sharp") || (atkelement == "blunt")) {
-    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
-      effective = true
-    }
-    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "fire") {
-    if ((enemyelement == "ice") || (enemyelement == "grass") || (enemyelement == "metal")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "rock")) {
-      resist = true
-    }
-  } else if (atkelement == "water") {
-    if ((enemyelement == "fire") || (enemyelement == "rock") || (enemyelement == "stardust")) {
-      effective = true
-    }
-    if ((enemyelement == "water") || (enemyelement == "grass") || (enemyelement == "ice") || (enemyelement == "poison") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "ice") {
-    if ((enemyelement == "grass") || (enemyelement == "water")) {
-      effective = true
-    }
-    if ((enemyelement == "ice") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "electric") {
-    if (enemyelement == "water") {
-      effective = true
-    }
-    if ((enemyelement == "electric") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "fighting") || (enemyelement == "electric")) {
-      effective = true
-    }
-    if ((enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "fighting") {
-    if ((enemyelement == "ice") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "grass")) {
-      resist = true
-    }
-  } else if (atkelement == "psychic") {
-    if ((enemyelement == "fighting") || (enemyelement == "poison")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic") || (enemyelement == "curse") || (enemyelement == "dark")) {
-      resist = true
-    }
-  } else if (atkelement == "dark") {
-    if ((enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "poison") {
-    if ((enemyelement == "water") || (enemyelement == "grass")) {
-      effective = true
-    }
-    if ((enemyelement == "nuclear") || (enemyelement == "poison") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "metal") {
-    if ((enemyelement == "ice") || (enemyelement == "rock")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "curse") {
-    if ((enemyelement == "dark") || (enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "curse") || (enemyelement == "fighting") || (enemyelement == "normal") || (enemyelement == "metal")) {
-      resist = true
-    }
-  }
+  local effective = typeEffect(atkelement, enemyelement)
+  // Now get the result
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
@@ -783,93 +717,8 @@ function ultraSuperAttack() {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
   // Now check for effective moves.
-  var effective = false
-  var resist = false
-  if ((atkelement == "sharp") || (atkelement == "blunt")) {
-    if ((enemyelement == "ice") || (enemyelement == "fighting")) {
-      effective = true
-    }
-    if ((enemyelement == "sharp") || (enemyelement == "blunt") || (enemyelement == "metal") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "fire") {
-    if ((enemyelement == "ice") || (enemyelement == "grass") || (enemyelement == "metal")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "rock")) {
-      resist = true
-    }
-  } else if (atkelement == "water") {
-    if ((enemyelement == "fire") || (enemyelement == "rock") || (enemyelement == "stardust")) {
-      effective = true
-    }
-    if ((enemyelement == "water") || (enemyelement == "grass") || (enemyelement == "ice") || (enemyelement == "poison") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "ice") {
-    if ((enemyelement == "grass") || (enemyelement == "water")) {
-      effective = true
-    }
-    if ((enemyelement == "ice") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "electric") {
-    if (enemyelement == "water") {
-      effective = true
-    }
-    if ((enemyelement == "electric") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "fighting") || (enemyelement == "electric")) {
-      effective = true
-    }
-    if ((enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "fighting") {
-    if ((enemyelement == "ice") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "psychic") || (enemyelement == "grass")) {
-      resist = true
-    }
-  } else if (atkelement == "psychic") {
-    if ((enemyelement == "fighting") || (enemyelement == "poison")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "light") || (enemyelement == "psychic") || (enemyelement == "curse") || (enemyelement == "dark")) {
-      resist = true
-    }
-  } else if (atkelement == "dark") {
-    if ((enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "metal") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "poison") {
-    if ((enemyelement == "water") || (enemyelement == "grass")) {
-      effective = true
-    }
-    if ((enemyelement == "nuclear") || (enemyelement == "poison") || (enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "metal") {
-    if ((enemyelement == "ice") || (enemyelement == "rock")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "water") || (enemyelement == "electric") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "curse") {
-    if ((enemyelement == "dark") || (enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "curse") || (enemyelement == "fighting") || (enemyelement == "normal") || (enemyelement == "metal")) {
-      resist = true
-    }
-  }
+  local effective = typeEffect(atkelement, enemyelement)
+  // Now get the result.
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
