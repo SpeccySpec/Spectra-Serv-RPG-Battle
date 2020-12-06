@@ -578,7 +578,7 @@ function multiAttack() {
   if (document.getElementById("element").value == "nuclear") {
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
-  local effective = typeEffect(atkelement, enemyelement)
+  var effective = typeEffect(atkelement, enemyelement)
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
   var accurate = (document.getElementById("accuracy").value/50);
@@ -658,24 +658,22 @@ function superAttack() {
     if (result < 1) {
       result = 1;
     }
-    if (effective == true) {
+    if (effective == "effective") {
       result = (result*2)
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (resist == true) {
+      document.getElementById("damage").innerHTML = "The enemy took a heavy " + result + "↑ damage! (" + basedmg + " without modifiers)";
+    } else if (effective == "resist") {
       result = (result/2)
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took a heavy" + result + "↓ damage! (" + basedmg + " without modifiers)";
     } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took a heavy" + result + " damage! (" + basedmg + " without modifiers)";
     }
+    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
     if (crit > 0.85) {
       document.getElementById("critical?").innerHTML = "(Missed crit :()";
     }
   }
-//if (document.getElementById("record").value == true) {
-  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-//}
 }
 	
 function ultraSuperAttack() {
@@ -720,36 +718,23 @@ function ultraSuperAttack() {
   var effective = typeEffect(atkelement, enemyelement)
   // Now get the result.
   var result = Math.round(basedmg + (strength/1) + (weapon/1));
-  var dodgechance = Math.random();
-  dodgechance = dodgechance+(document.getElementById("agility").value/50);
-  var accurate = (document.getElementById("accuracy").value/50);
-  dodgechance = (dodgechance - accurate);
-  if (dodgechance < 0.98) {
-    var statmod = document.getElementById("statmod").value
-    if (statmod != 0) {
-      result = (result + (statmod/2))
-    }
-    if (result < 1) {
-      result = 1;
-    }
-    if (effective == true) {
-      result = (result*3)
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (resist == true) {
-      result = (result/2)
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
-    } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
-    }
-  } else {
-    document.getElementById("damage").innerHTML = "It was dodged!";
-    if (crit > 0.85) {
-      document.getElementById("critical?").innerHTML = "(Missed crit :()";
-    }
+  var statmod = document.getElementById("statmod").value
+  if (statmod != 0) {
+    result = (result + (statmod/2))
   }
-//if (document.getElementById("record").value == true) {
+  if (result < 1) {
+    result = 1;
+  }
+  if (effective == "effective") {
+    result = (result*3)
+    document.getElementById("damage").innerHTML = "The enemy took a wounding" + result + "↑ damage! (" + basedmg + " without modifiers)";
+  } else if (effective == "resist) {
+    result = (result/2)
+    document.getElementById("damage").innerHTML = "The enemy took a heavy " + result + "↓ damage! (" + basedmg + " without modifiers)";
+  } else {
+    document.getElementById("damage").innerHTML = "The enemy took a severe" + result + " damage! (" + basedmg + " without modifiers)";
+  }
   document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-//}
 }
 
 function randChance() {
