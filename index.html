@@ -241,8 +241,11 @@ Soon</p>
   <option value="light">Light</option>
   <option value="ki">Ki</option>
   <option value="nuclear">Nuclear</option>
-  <option value="stardust">Stardust</option>
-  <option value="mystical">Mystical</option>
+  <option value="almighty">Almighty</option>
+  <option value="frostburn">Frostburn</option>
+  <option value="death">Death</option>
+  <option value="pierce">Pierce</option>
+  <option value="harmony">Harmony</option>
 </select></p>
 	
 <p>Enemy HP:
@@ -289,15 +292,13 @@ Soon</p>
   <option value="radiation">Radiation</option>
   <option value="stardust">Stardust</option>
 </select></p>
+	
+<p>Max Damage:
+<input type="number" id="maxdmg" name="dmg" min="1" max="200"></p>
 
 <p>
-<button class="atkbutton" onclick="regularAttack()">Regular Attack!</button>
+<button class="atkbutton" onclick="dealDmg()">Regular Attack!</button>
 <button class="multiatkbutton" onclick="multiAttack()">Multi Attack!</button>
-</p>
-	
-<p>
-<button class="superatkbutton" onclick="superAttack()">Super Attack!</button>
-<button class="superatkbutton" onclick="ultraSuperAttack()">Ultra Super Attack!</button>
 </p>
 
 <p>
@@ -407,8 +408,33 @@ function typeEffect(atkelement, enemyelement) {
     if ((enemyelement == "dark") || (enemyelement == "fighting")) {
       resist = true
     }
+  } else if (atkelement == "frostburn") {
+    if ((enemyelement == "grass") || (enemyelement == "water")) {
+      effective = true
+    }
+    if ((enemyelement == "fire") || (enemyelement == "ice")) {
+      resist = true
+    }
+  } else if (atkelement == "pierce") {
+    if ((enemyelement == "normal") || (enemyelement == "fighting")) {
+      effective = true
+    }
+  } else if (atkelement == "death") {
+    if ((enemyelement == "psychic") || (enemyelement == "light")) {
+      effective = true
+    }
+    if ((enemyelement == "curse") || (enemyelement == "dark")) {
+      resist = true
+    }
+  } else if (atkelement == "harmony") {
+    if ((enemyelement == "curse") || (enemyelement == "psychic")) {
+      effective = true
+    }
+    if ((enemyelement == "dark") || (enemyelement == "light")) {
+      resist = true
+    }
   }
-	
+
   if (effective == true) {
     return "effective"
   } else if ((resist == true) || (atkelement == enemyelement)) {
@@ -419,7 +445,7 @@ function typeEffect(atkelement, enemyelement) {
 }
 	
 function getChance(chance) {
-	var chnce = (chance/100)
+var chnce = (chance/100)
 	var targ = Math.random()
 	if (targ >= chnce) {
 		return true
@@ -428,13 +454,14 @@ function getChance(chance) {
 	}
 }
 
-function regularAttack() {
+function dealDmg() {
   document.getElementById("damage").innerHTML = "";
   document.getElementById("secondary").innerHTML = "";
   var strength = document.getElementById("strength").value;
   var weapon = document.getElementById("weapon").value;
   var defense = document.getElementById("defense").value;
-  var basedmg = Math.floor(Math.random() * (30 - 1 + 1) + 1);
+  var max = document.getElementById("maxdmg").value;
+  var basedmg = Math.floor(Math.random() * (max - 1 + 1) + 1);
   var atkelement = document.getElementById("element").value
   var enemyelement = document.getElementById("oppelement").value
   var crit = getChance(85);
@@ -448,18 +475,22 @@ function regularAttack() {
   // Some types have secondary effects.
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (atkelement == "sharp") {
+     if ((atkelement == "sharp") || (atkelement == "pierce")) {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (atkelement == "fire") {
+     } else if ((atkelement == "fire") || (atkelement == "frostburn")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (atkelement == "ice") {
+     } else if ((atkelement == "ice") || (atkelement == "frostburn")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
      } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
      } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if (atkelement == "curse") {
+     } else if ((atkelement == "curse") || (atkelement == "death")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
+     } else if ((atkelement == "light") || (atkelement == "harmony")) {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Dizziness)";
+     } else if (atkelement == "psychic") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Brainwash)";
      }
   }
   // Nuclear does double damage.
@@ -572,18 +603,22 @@ function multiAttack() {
   }
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
-     if (atkelement == "sharp") {
+     if ((atkelement == "sharp") || (atkelement == "pierce")) {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (atkelement == "fire") {
+     } else if ((atkelement == "fire") || (atkelement == "frostburn")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (atkelement == "ice") {
+     } else if ((atkelement == "ice") || (atkelement == "frostburn")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
      } else if (atkelement == "electric") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
      } else if (atkelement == "poison") {
        document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if (atkelement == "curse") {
+     } else if ((atkelement == "curse") || (atkelement == "death")) {
        document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
+     } else if ((atkelement == "light") || (atkelement == "harmony")) {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Dizziness)";
+     } else if (atkelement == "psychic") {
+       document.getElementById("secondary").innerHTML = "(Inflicted with Brainwash)";
      }
   }
   if (document.getElementById("element").value == "nuclear") {
@@ -613,139 +648,6 @@ function multiAttack() {
 //if (document.getElementById("record").value == true) {
   document.getElementById("opphp").value = (document.getElementById("opphp").value - (totalatk/1))
 //}
-}
-  
-function superAttack() {
-  document.getElementById("damage").innerHTML = "";
-  document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
-  var defense = document.getElementById("defense").value;
-  var basedmg = Math.floor(Math.random() * (80 - 1 + 1) + 1);
-  var atkelement = document.getElementById("element").value
-  var enemyelement = document.getElementById("oppelement").value
-  var crit = Math.random();
-  if (crit > 0.85) {
-     document.getElementById("critical?").innerHTML = "(Critical)";
-     basedmg = Math.floor(basedmg + (basedmg / 2));
-  } else {
-     document.getElementById("critical?").innerHTML = "";
-  }
-   // Some types have secondary effects.
-  var effect = Math.random();
-  if ((effect > 0.85) & (crit <= 0.85)) {
-     if (atkelement == "sharp") {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (atkelement == "fire") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (atkelement == "ice") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (atkelement == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (atkelement == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if (atkelement == "curse") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
-     }
-  }
-  // Nuclear does double damage.
-  if (atkelement == "nuclear") {
-    basedmg = Math.round(basedmg*2);
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
-  }
-  // Now check for effective moves.
-  var effective = typeEffect(atkelement, enemyelement)
-  // Now get the result
-  var result = Math.round(basedmg + (strength/1) + (weapon/1));
-  var dodgechance = Math.random();
-  dodgechance = dodgechance+(document.getElementById("agility").value/50);
-  var accurate = (document.getElementById("accuracy").value/50);
-  dodgechance = (dodgechance - accurate);
-  if (dodgechance < 0.98) {
-    var statmod = document.getElementById("statmod").value
-    if (statmod != 0) {
-      result = (result + (statmod/2))
-    }
-    if (result < 1) {
-      result = 1;
-    }
-    if (effective == "effective") {
-      result = (result*2)
-      document.getElementById("damage").innerHTML = "The enemy took a heavy " + result + "↑ damage! (" + basedmg + " without modifiers)";
-    } else if (effective == "resist") {
-      result = (result/2)
-      document.getElementById("damage").innerHTML = "The enemy took a heavy" + result + "↓ damage! (" + basedmg + " without modifiers)";
-    } else {
-      document.getElementById("damage").innerHTML = "The enemy took a heavy" + result + " damage! (" + basedmg + " without modifiers)";
-    }
-    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-  } else {
-    document.getElementById("damage").innerHTML = "It was dodged!";
-    if (crit > 0.85) {
-      document.getElementById("critical?").innerHTML = "(Missed crit :()";
-    }
-  }
-}
-	
-function ultraSuperAttack() {
-  document.getElementById("damage").innerHTML = "";
-  document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
-  var defense = document.getElementById("defense").value;
-  var basedmg = Math.floor(Math.random() * (120 - 1 + 1) + 1);
-  var atkelement = document.getElementById("element").value
-  var enemyelement = document.getElementById("oppelement").value
-  var crit = Math.random();
-  if (crit > 0.85) {
-     document.getElementById("critical?").innerHTML = "(Critical)";
-     basedmg = Math.floor(basedmg + (basedmg / 2));
-  } else {
-     document.getElementById("critical?").innerHTML = "";
-  }
-  // Some types have secondary effects.
-  var effect = Math.random();
-  if ((effect > 0.85) & (crit <= 0.85)) {
-     if (atkelement == "sharp") {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if (atkelement == "fire") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if (atkelement == "ice") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (atkelement == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (atkelement == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if (atkelement == "curse") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
-     }
-  }
-  // Nuclear does double damage.
-  if (atkelement == "nuclear") {
-    basedmg = Math.round(basedmg*2);
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
-  }
-  // Now check for effective moves.
-  var effective = typeEffect(atkelement, enemyelement)
-  // Now get the result.
-  var result = Math.round(basedmg + (strength/1) + (weapon/1));
-  var statmod = document.getElementById("statmod").value
-  if (statmod != 0) {
-    result = (result + (statmod/2))
-  }
-  if (result < 1) {
-    result = 1;
-  }
-  if (effective == "effective") {
-    result = (result*3)
-    document.getElementById("damage").innerHTML = "The enemy took a wounding" + result + "↑ damage! (" + basedmg + " without modifiers)";
-  } else if (effective == "resist") {
-    result = (result/2)
-    document.getElementById("damage").innerHTML = "The enemy took a heavy " + result + "↓ damage! (" + basedmg + " without modifiers)";
-  } else {
-    document.getElementById("damage").innerHTML = "The enemy took a severe" + result + " damage! (" + basedmg + " without modifiers)";
-  }
-  document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
 }
 
 function randChance() {
