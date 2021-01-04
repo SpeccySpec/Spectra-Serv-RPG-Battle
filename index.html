@@ -208,17 +208,11 @@ Soon</p>
 <!--<p>Character Name:
 <input type="text" id="charname" name="charactername"></p>-->
 
-<p>Input Strength:
-<input type="number" id="strength" name="atk" min="1" max="10"></p>
+<p>Input Physical Damage: <input type="number" id="physatk" name="physatk" min="10" max="30"></p>
+<p>Input Ranged Damage: <input type="number" id="rngeatk" name="rngeatk" min="10" max="30"></p>
 	
 <p>Input Accuracy:
 <input type="number" id="accuracy" name="accuracy" min="1" max="10"></p>
-
-<p>Input Weapon Proficiency:
-<input type="number" id="weapon" name="weap" min="1" max="10"></p>
-	
-<p>Input Stat Modifiers:
-<input type="number" id="statmod" name="stats" min="-6" max="6"></p>
   
 <p>Attack Element:
 <select name="element" id="element">
@@ -293,8 +287,8 @@ Soon</p>
   <option value="stardust">Stardust</option>
 </select></p>
 	
-<p>Max Damage:
-<input type="number" id="maxdmg" name="dmg" min="1" max="200"></p>
+<p>Level:
+<input type="number" id="maxdmg" name="dmg" min="1" max="100"></p>
 
 <p>
 <button class="atkbutton" onclick="dealDmg()">Attack!</button>
@@ -445,33 +439,44 @@ function typeEffect(atkelement, enemyelement) {
 }
 	
 function getChance(chance) {
-var chnce = (chance/100)
-	var targ = Math.random()
-	if (targ >= chnce) {
-		return true
-	} else {
-		return false
-	}
+  var chnce = (chance/100)
+  var targ = Math.random()
+  if (targ >= chnce) {
+    return true
+  } else {
+    return false
+  }
 }
 
 function dealDmg() {
+  // Reset Stuff
   document.getElementById("damage").innerHTML = "";
   document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
+	
+  // Base Damage
+  var dmg = 0
+  if (document.getElementById("atktype").value == "physical") {
+    dmg = document.getElementById("physatk").value;
+  } else if (document.getElementById("atktype").value == "ranged") {
+    dmg = document.getElementById("rngeatk").value;
+  }
+	
+  // Enemy Defense
   var defense = document.getElementById("defense").value;
-  var max = document.getElementById("maxdmg").value;
-  var basedmg = Math.floor(Math.random() * (max - 1 + 1) + 1);
+	
+  // Elements
   var atkelement = document.getElementById("element").value
   var enemyelement = document.getElementById("oppelement").value
+  
+  // Critical hits
   var crit = getChance(85);
-  // Occasional critical hits
   if (crit == true) {
      document.getElementById("critical?").innerHTML = "(Critical)";
-     basedmg = Math.floor(basedmg + (basedmg / 2));
+     dmg = Math.floor(basedmg + (basedmg / 2));
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
+
   // Some types have secondary effects.
   var effect = Math.random();
   if ((effect > 0.85) & (crit <= 0.85)) {
@@ -493,15 +498,24 @@ function dealDmg() {
        document.getElementById("secondary").innerHTML = "(Inflicted with Brainwash)";
      }
   }
+
   // Nuclear does double damage.
   if (atkelement == "nuclear") {
     basedmg = Math.round(basedmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
+
   // Now check for effective moves.
   var effective = typeEffect(atkelement, enemyelement)
+  if (effective == "effective") {
+    dmg = dmg+(dmg/4) // 1.25 as effective
+  } else if (effective == "resist") {
+    dmg = dmg-(dmg/4) // 0.75 as effective
+  }
+
   // Get results
-  var result = Math.floor(basedmg + (strength/1) + (weapon/1) - defense);
+  var result = Math.floor(Math.floor(Math.floor(level/5+2)*dmg*dmg/defense)/50)+2;
+
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
   if ((status == "burn") || (status == "poison")) {
@@ -517,6 +531,8 @@ function dealDmg() {
       return false
     }
   }
+	
+  // Dodge And Damage
   var dodgechance = Math.random();
   dodgechance = dodgechance+(document.getElementById("agility").value/50);
   var accurate = (document.getElementById("accuracy").value/50);
@@ -537,10 +553,8 @@ function dealDmg() {
       }
     }
     if (effective == "effective") {
-      result = (result*2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
     } else if (effective == "resist") {
-      result = (result/2)
       document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
     } else {
       document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
