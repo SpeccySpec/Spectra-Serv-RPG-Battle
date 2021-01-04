@@ -530,7 +530,7 @@ function dealDmg() {
   dmg = dmg+rand
 
   // Get results
-  var result = Math.round(((dmg*(level/10))+(atk/defense)+(level/5)))
+  var result = Math.round((dmg+level)+(atk/defense)+(level/5))
 
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
