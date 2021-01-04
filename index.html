@@ -460,11 +460,14 @@ function dealDmg() {
   document.getElementById("secondary").innerHTML = "";
 	
   // Base Damage
-  var dmg = 0
+  var dmg = 1
+  var atk = 1
   if (document.getElementById("atktype").value == "physical") {
     dmg = document.getElementById("physatk").value;
+    atk = document.getElementById("physatk").value
   } else if (document.getElementById("atktype").value == "ranged") {
     dmg = document.getElementById("rngeatk").value;
+    atk = document.getElementById("rngeatk").value
   }
 	
   // Level
@@ -480,7 +483,7 @@ function dealDmg() {
   // Critical hits
   var crit = getChance(85);
   if (crit == true) {
-     dmg = Math.round(dmg + (dmg/2));
+     dmg = Math.round(dmg*(1.5));
      crit = "💥"
   } else {
      crit = "";
@@ -517,13 +520,13 @@ function dealDmg() {
   // Now check for effective moves.
   var effective = typeEffect(atkelement, enemyelement)
   if (effective == "effective") {
-    dmg = Math.round(dmg + (dmg/4)) // 1.25x as effective
+    dmg = Math.round(dmg*(1.25)) // 1.25x as effective
   } else if (effective == "resist") {
-    dmg = Math.round(dmg - (dmg/4)) // 0.75x as effective
+    dmg = Math.round(dmg*(0.75)) // 0.75x as effective
   }
 
   // Get results
-  var result = Math.round(((level/5+2)*dmg*dmg/defense)/50)+2;
+  var result = Math.round(((level/5+2)*dmg*atk/defense)/50)+2;
 
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
