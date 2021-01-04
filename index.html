@@ -467,18 +467,21 @@ function dealDmg() {
     dmg = document.getElementById("rngeatk").value;
   }
 	
+  // Level
+  var level = document.getElementById("level").value;
+	
   // Enemy Defense
   var defense = document.getElementById("defense").value;
 	
   // Elements
-  var atkelement = document.getElementById("element").value
-  var enemyelement = document.getElementById("oppelement").value
+  var atkelement = document.getElementById("element").value;
+  var enemyelement = document.getElementById("oppelement").value;
   
   // Critical hits
   var crit = getChance(85);
   if (crit == true) {
      document.getElementById("critical?").innerHTML = "(Critical)";
-     dmg = Math.floor(basedmg + (basedmg / 2));
+     dmg = Math.floor(dmg + (dmg/2));
   } else {
      document.getElementById("critical?").innerHTML = "";
   }
@@ -507,16 +510,16 @@ function dealDmg() {
 
   // Nuclear does double damage.
   if (atkelement == "nuclear") {
-    basedmg = Math.round(basedmg*2);
+    dmg = Math.round(dmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
 
   // Now check for effective moves.
   var effective = typeEffect(atkelement, enemyelement)
   if (effective == "effective") {
-    dmg = dmg+(dmg/4) // 1.25 as effective
+    dmg = Math.floor(dmg+(dmg/4)) // 1.25 as effective
   } else if (effective == "resist") {
-    dmg = dmg-(dmg/4) // 0.75 as effective
+    dmg = Math.floor(dmg-(dmg/4)) // 0.75 as effective
   }
 
   // Get results
