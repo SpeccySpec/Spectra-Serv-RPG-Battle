@@ -524,6 +524,9 @@ function dealDmg() {
   } else if (effective == "resist") {
     dmg = Math.round(dmg*(0.75)) // 0.75x as effective
   }
+	
+  // Randomness!
+  dmg = dmg + Math.floor(Math.random() * (5 - 1 + 1) + 1) - Math.floor(Math.random() * (10 - 1 + 1) + 1)
 
   // Get results
   var result = Math.round(((dmg*(level/10))+(atk/defense)+(level/5)))
