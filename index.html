@@ -480,15 +480,15 @@ function dealDmg() {
   // Critical hits
   var crit = getChance(85);
   if (crit == true) {
-     document.getElementById("critical?").innerHTML = "(Critical)";
      dmg = Math.floor(dmg + (dmg/2));
+     crit = "💥"
   } else {
-     document.getElementById("critical?").innerHTML = "";
+     crit = "";
   }
 
   // Some types have secondary effects.
   var effect = Math.random();
-  if ((effect > 0.85) & (crit <= 0.85)) {
+  if (effect > 0.85) {
      if ((atkelement == "sharp") || (atkelement == "pierce")) {
         document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
      } else if ((atkelement == "fire") || (atkelement == "frostburn")) {
@@ -558,19 +558,16 @@ function dealDmg() {
       }
     }
     if (effective == "effective") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + dmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + "↑ damage! (" + dmg + " without modifiers)";
     } else if (effective == "resist") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + dmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + "↓ damage! (" + dmg + " without modifiers)";
     } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + dmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + " damage! (" + dmg + " without modifiers)";
     }
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
     return true
   } else {
     document.getElementById("damage").innerHTML = "It was dodged!";
-    if (crit > 0.85) {
-      document.getElementById("critical?").innerHTML = "(Missed crit :()";
-    }
     return false
   }
 }
