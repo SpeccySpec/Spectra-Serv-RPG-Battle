@@ -565,11 +565,11 @@ function dealDmg() {
       }
     }
     if (effective == "effective") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + "↑ damage!";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + "↑ damage!";
     } else if (effective == "resist") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + "↓ damage!";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + "↓ damage!";
     } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + crit + " damage!";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + " damage!";
     }
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
     return true
