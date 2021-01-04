@@ -480,7 +480,7 @@ function dealDmg() {
   // Critical hits
   var crit = getChance(85);
   if (crit == true) {
-     dmg = Math.floor(dmg + (dmg/2));
+     dmg = Math.floor(dmg*(1/2));
      crit = "💥"
   } else {
      crit = "";
@@ -517,9 +517,9 @@ function dealDmg() {
   // Now check for effective moves.
   var effective = typeEffect(atkelement, enemyelement)
   if (effective == "effective") {
-    dmg = Math.floor(dmg+(dmg/4)) // 1.25 as effective
+    dmg = Math.floor(dmg*(3/2)) // 1.5x as effective
   } else if (effective == "resist") {
-    dmg = Math.floor(dmg-(dmg/4)) // 0.75 as effective
+    dmg = Math.floor(dmg*(1/2)) // 0.5x as effective
   }
 
   // Get results
