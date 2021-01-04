@@ -195,7 +195,7 @@ canvas { display: block; vertical-align: bottom; }
 
 <center>
 <div id="container">
-<h1>DnD damage generator!</h1>
+<h1>(Very not) DnD damage generator!</h1>
 <p>A tool for reducing battle time</p>
 	
 <p>Presets:
@@ -240,6 +240,12 @@ Soon</p>
   <option value="death">Death</option>
   <option value="pierce">Pierce</option>
   <option value="harmony">Harmony</option>
+</select></p>
+	
+<p>Attack Type:
+<select name="atktype" id="atktype">
+  <option value="physical">Physical</option>
+  <option value="ranged">Ranged</option>
 </select></p>
 	
 <p>Enemy HP:
@@ -288,7 +294,7 @@ Soon</p>
 </select></p>
 	
 <p>Level:
-<input type="number" id="maxdmg" name="dmg" min="1" max="100"></p>
+<input type="number" id="level" name="level" min="1" max="100"></p>
 
 <p>
 <button class="atkbutton" onclick="dealDmg()">Attack!</button>
