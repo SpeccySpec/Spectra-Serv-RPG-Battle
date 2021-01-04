@@ -526,8 +526,8 @@ function dealDmg() {
   }
 	
   // Randomness!
-//var rand = Math.floor(Math.random() * (5 - 1 + 1) + 1)
-//dmg = dmg+rand
+  var rand = ((Math.random() * ((dmg+5) - (dmg-5))) + (dmg-5))
+  dmg = rand
 
   // Get results
   var result = Math.round((dmg*(level/10))+(atk/defense)+(level/5))
