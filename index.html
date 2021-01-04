@@ -526,7 +526,7 @@ function dealDmg() {
   }
 	
   // Randomness!
-  var rand = ((Math.random() * ((dmg+5) - (dmg-5))) + (dmg-5))
+  var rand = Math.round((Math.random() * ((dmg+5) - (dmg-5))) + (dmg-5))
   dmg = rand
 
   // Get results
