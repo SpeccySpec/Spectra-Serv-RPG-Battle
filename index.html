@@ -526,7 +526,7 @@ function dealDmg() {
   }
 
   // Get results
-  var result = Math.round(((level/5+2)*dmg*(atk/defense))/50)+2;
+  var result = Math.round(((dmg*(level/7))+(atk/defense)+(level/3))
 
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
