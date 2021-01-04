@@ -469,6 +469,7 @@ function dealDmg() {
     dmg = document.getElementById("rngeatk").value;
     atk = document.getElementById("rngeatk").value
   }
+  console.log('dmg is ' + dmg + '.');
 	
   // Level
   var level = document.getElementById("level").value;
@@ -484,9 +485,11 @@ function dealDmg() {
   var crit = getChance(85);
   if (crit == true) {
      dmg = Math.round(dmg*(1.5));
+     console.log('dmg is ' + dmg + '.');
      crit = "💥"
   } else {
      crit = "";
+     console.log('dmg is still ' + dmg + '.');
   }
 
   // Some types have secondary effects.
@@ -514,28 +517,33 @@ function dealDmg() {
   // Nuclear does double damage.
   if (atkelement == "nuclear") {
     dmg = Math.round(dmg*2);
+    console.log('dmg is ' + dmg + '.');
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
 
   // Now check for effective moves.
-  var effective = typeEffect(atkelement, enemyelement)
+  var effective = typeEffect(atkelement, enemyelement);
   if (effective == "effective") {
-    dmg = Math.round(dmg*(1.25)) // 1.25x as effective
+    dmg = Math.round(dmg*(1.25)); // 1.25x as effective
+    console.log('dmg is ' + dmg + '.');
   } else if (effective == "resist") {
-    dmg = Math.round(dmg*(0.75)) // 0.75x as effective
+    dmg = Math.round(dmg*(0.75)); // 0.75x as effective
+    console.log('dmg is ' + dmg + '.');
   }
 	
   // Randomness!
-  var rand = Math.round(Math.random() * 10)
-  dmg = dmg+rand
+  var rand = Math.round(Math.random() * 10);
+  dmg = dmg+rand;
+  console.log('dmg is ' + dmg + '.');
 
   // Get results
-  var result = Math.round((dmg*(level/10))+(atk/defense)+(level/5))
+  var result = Math.round((dmg*(level/10))+(atk/defense)+(level/5));
+  console.log('total dmg is ' + result + '.');
 
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
   if ((status == "burn") || (status == "poison")) {
-    result = Math.round(result/2)
+    result = Math.round(result/2);
   }
   if (status == "freeze") {
     var escapechance = Math.random();
