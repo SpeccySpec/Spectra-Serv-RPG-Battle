@@ -534,7 +534,7 @@ function dealDmg() {
   // Randomness!
   var rand = Math.floor(Math.random() * 10);
   console.log('completely random modifier is ' + rand + '. now add it to ' + dmg + '.');
-  dmg = dmg+rand;
+  dmg = +dmg + +rand;
   console.log('dmg is ' + dmg + '.');
 
   // Get results
