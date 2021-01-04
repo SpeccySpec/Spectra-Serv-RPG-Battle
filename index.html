@@ -480,7 +480,7 @@ function dealDmg() {
   // Critical hits
   var crit = getChance(85);
   if (crit == true) {
-     dmg = Math.round(dmg*1.5);
+     dmg = Math.round(dmg + (dmg/2));
      crit = "💥"
   } else {
      crit = "";
@@ -510,20 +510,20 @@ function dealDmg() {
 
   // Nuclear does double damage.
   if (atkelement == "nuclear") {
-    dmg = Math.round(dmg*1.5);
+    dmg = Math.round(dmg*2);
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
   }
 
   // Now check for effective moves.
   var effective = typeEffect(atkelement, enemyelement)
   if (effective == "effective") {
-    dmg = Math.floor(dmg*1.25) // 1.25x as effective
+    dmg = Math.round(dmg + (dmg/4)) // 1.25x as effective
   } else if (effective == "resist") {
-    dmg = Math.floor(dmg*0.75) // 0.75x as effective
+    dmg = Math.round(dmg - (dmg/4)) // 0.75x as effective
   }
 
   // Get results
-  var result = Math.floor(Math.floor(Math.floor(level/5+2)*dmg*dmg/defense)/50)+2;
+  var result = Math.round(((level/5+2)*dmg*dmg/defense)/50)+2;
 
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
