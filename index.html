@@ -548,22 +548,18 @@ function dealDmg() {
     if (result < 1) {
       result = 1;
     }
-    var statmod = document.getElementById("statmod").value
-    if (statmod != 0) {
-      result = (result + (statmod/2))
-    }
     if (status == "brainwashed") {
       if (statuschance > 0.6) {
-	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + basedmg + " damage!";
+	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
 	 return true
       }
     }
     if (effective == "effective") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + basedmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↑ damage! (" + dmg + " without modifiers)";
     } else if (effective == "resist") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + basedmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + "↓ damage! (" + dmg + " without modifiers)";
     } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + basedmg + " without modifiers)";
+      document.getElementById("damage").innerHTML = "The enemy took " + result + " damage! (" + dmg + " without modifiers)";
     }
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
     return true
