@@ -526,8 +526,8 @@ function dealDmg() {
   }
 	
   // Randomness!
-  var rand = Math.round((Math.random() * ((dmg+5) - (dmg-5))) + (dmg-5))
-  dmg = rand
+  var rand = Math.round((Math.random() * 10)
+  dmg = dmg+rand
 
   // Get results
   var result = Math.round((dmg*(level/10))+(atk/defense)+(level/5))
@@ -535,7 +535,7 @@ function dealDmg() {
   // Apply Status Effects to Attack
   var status = document.getElementById("status").value
   if ((status == "burn") || (status == "poison")) {
-    result = (result/2)
+    result = Math.round(result/2)
   }
   if (status == "freeze") {
     var escapechance = Math.random();
