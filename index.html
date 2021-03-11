@@ -228,7 +228,7 @@ Soon</p>
 <p>Effectiveness:
 <select name="element" id="element">
   <option value="normal">Normal</option>
-  <option value="effective">Effective</option>
+  <option value="weak">Effective</option>
   <option value="resist">Resist</option>
   <option value="repel">Repel</option>
   <option value="drain">Drain</option>
@@ -309,6 +309,12 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 		values[1] = values[1]/2
 	}
 	
+	// Crits
+	if getChance(90-luk) {
+		values[1] = values[1]*2
+		values[4] = true
+	}
+	
 	return values
 }
 	
@@ -332,87 +338,48 @@ function dealDmg() {
 	var prc = document.getElementById("acc").innerHTML
 	var luk = document.getElementById("luck").innerHTML
 	
+	var enmdef = document.getElementById("def").innerHTML
+	var enmagl = document.getElementById("agl").innerHTML
+	
 	var movepow = document.getElementById("pow").innerHTML
 	var moveacc = document.getElementById("moveacc").innerHTML
+	var dmgtype = document.getElementById("dmgtype").innerHTML
 
+	if dmgtype == "block" {
+		document.getElementById("damage").innerHTML = "But it was blocked!"
+		return false
+	}
+		
 	var dmg = genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype)
-  if (document.getElementById("atktype").value == "physical") {
-    dmg = document.getElementById("physatk").value;
-    atk = document.getElementById("physatk").value
-  } else if (document.getElementById("atktype").value == "ranged") {
-    dmg = document.getElementById("rngeatk").value;
-    atk = document.getElementById("rngeatk").value
-  }
-  console.log('dmg is ' + dmg + '.');
-	
-  // Level
-  var level = document.getElementById("level").value;
-	
-  // Enemy Defense
-  var defense = document.getElementById("defense").value;
-	
-  // Elements
-  var atkelement = document.getElementById("element").value;
-  var enemyelement = document.getElementById("oppelement").value;
+  console.log('dmg is ' + dmg[1] + '.');
   
   // Critical hits
-  var crit = getChance(85);
-  if (crit == true) {
-     dmg = Math.round(dmg*(1.5));
-     console.log('dmg is ' + dmg + '.');
+	var crit = ""
+  if (dmg[4] == true) {
      crit = "💥"
-  } else {
-     crit = "";
-     console.log('dmg is still ' + dmg + '.');
   }
 
   // Some types have secondary effects.
   var effect = Math.random();
   if (effect > 0.85) {
-     if ((atkelement == "sharp") || (atkelement == "pierce")) {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if ((atkelement == "fire") || (atkelement == "frostburn")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if ((atkelement == "ice") || (atkelement == "frostburn")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (atkelement == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (atkelement == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if ((atkelement == "curse") || (atkelement == "death")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
-     } else if ((atkelement == "light") || (atkelement == "harmony")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Dizziness)";
-     } else if (atkelement == "psychic") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Brainwash)";
-     }
   }
 
   // Nuclear does double damage.
   if (atkelement == "nuclear") {
-    dmg = Math.round(dmg*2);
-    console.log('dmg is ' + dmg + '.');
+    dmg[1] = Math.round(dmg[1]*2);
+    console.log('dmg is ' + dmg[1] + '.');
     document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
-  }
-
-  // Now check for effective moves.
-  var effective = typeEffect(atkelement, enemyelement);
-  if (effective == "effective") {
-    dmg = Math.round(dmg*(1.25)); // 1.25x as effective
-    console.log('dmg is ' + dmg + '.');
-  } else if (effective == "resist") {
-    dmg = Math.round(dmg*(0.75)); // 0.75x as effective
-    console.log('dmg is ' + dmg + '.');
   }
 	
   // Randomness!
   var rand = Math.floor(Math.random() * 10);
-  console.log('completely random modifier is ' + rand + '. now add it to ' + dmg + '.');
-  dmg = +dmg + +rand;
-  console.log('dmg is ' + dmg + '.');
+  console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[1] + '.');
+  dmg[1] = +dmg[1] + +rand;
+  console.log('dmg is ' + dmg[1] + '.');
 
   // Get results
-  var result = Math.round((dmg*(level/10))+(atk/defense)+(level/5));
+	var level = document.getElementById("level").value;
+  var result = Math.round((dmg[1]*(level/10))+(level/5));
   console.log('total dmg is ' + result + '.');
 
   // Apply Status Effects to Attack
@@ -432,19 +399,18 @@ function dealDmg() {
   }
 	
   // Dodge And Damage
-  var dodgechance = Math.random();
-  dodgechance = dodgechance+(document.getElementById("agility").value/50);
-  var accurate = (document.getElementById("accuracy").value/50);
-  dodgechance = (dodgechance - accurate);
   var statuschance = Math.random();
-  if (dodgechance < 0.95) {
+  if dmg[2] == "miss" {
+    document.getElementById("damage").innerHTML = "It was dodged!";
+    return false
+  } else {
     if (result < 1) {
       result = 1;
     }
     if (status == "brainwashed") {
       if (statuschance > 0.6) {
-	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
-	 return true
+	 			document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
+				return true
       }
     }
     if (effective == "effective") {
@@ -456,9 +422,6 @@ function dealDmg() {
     }
     document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
     return true
-  } else {
-    document.getElementById("damage").innerHTML = "It was dodged!";
-    return false
   }
 }
 	
