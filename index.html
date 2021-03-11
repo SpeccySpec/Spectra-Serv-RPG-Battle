@@ -208,55 +208,31 @@ Soon</p>
 <!--<p>Character Name:
 <input type="text" id="charname" name="charactername"></p>-->
 
-<p>Input Physical Damage: <input type="number" id="physatk" name="physatk" min="10" max="30"></p>
-<p>Input Ranged Damage: <input type="number" id="rngeatk" name="rngeatk" min="10" max="30"></p>
+<p>Input Level: <input type="number" id="level" name="level" min="1" max="100"></p>
+<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="99"></p>
+<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="99"></p>
+<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="99"></p>
+<p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="99"></p>
+
+<p>Input Move Power: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
+<p>Input Move Accuracy: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
+<p>Input Move Type: <select name="atktype" id="atktype">
+			<option value="physical">Physical</option>
+			<option value="ranged">Ranged</option>
+		    </select></p>
 	
-<p>Input Accuracy:
-<input type="number" id="accuracy" name="accuracy" min="1" max="10"></p>
+<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="1000"></p>
+<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="99"></p>
+<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="99"></p>
   
 <p>Effectiveness:
 <select name="element" id="element">
+  <option value="normal">Normal</option>
   <option value="effective">Effective</option>
   <option value="resist">Resist</option>
   <option value="repel">Repel</option>
   <option value="drain">Drain</option>
 </select></p>
-	
-<p>Attack Type:
-<select name="atktype" id="atktype">
-  <option value="physical">Physical</option>
-  <option value="ranged">Ranged</option>
-</select></p>
-	
-<p>Enemy HP:
-<input type="number" id="opphp" name="hp" min="1" max="1000"></p>
-	
-<p>Enemy Element:
-<select name="enemyelement" id="oppelement">
-  <option value="normal">Normal</option>
-  <option value="fighting">Fighting</option>
-  <option value="fire">Fire</option>
-  <option value="water">Water</option>
-  <option value="ice">Ice</option>
-  <option value="electric">Electric</option>
-  <option value="wind">Wind</option>
-  <option value="rock">Rock</option>
-  <option value="grass">Grass</option>
-  <option value="psychic">Psychic</option>
-  <option value="dark">Dark</option>
-  <option value="curse">Curse</option>
-  <option value="metal">Metal</option>
-  <option value="light">Light</option>
-  <option value="poison">Poison</option>
-  <option value="stardust">Stardust</option>
-  <option value="mystical">Mystical</option>
-</select></p>
-
-<p>Enemy Defense:
-<input type="number" id="defense" name="def" min="1" max="50"></p>
-	
-<p>Enemy Agility:
-<input type="number" id="agility" name="agl" min="1" max="20"></p>
 	
 <p>Under Status Effect:
 <select name="statuseffect" id="status">
@@ -272,9 +248,6 @@ Soon</p>
   <option value="radiation">Radiation</option>
   <option value="stardust">Stardust</option>
 </select></p>
-	
-<p>Level:
-<input type="number" id="level" name="level" min="1" max="100"></p>
 
 <p>
 <button class="atkbutton" onclick="dealDmg()">Attack!</button>
@@ -293,137 +266,7 @@ Soon</p>
 </center>
 </div>
 
-<script>
-function typeEffect(atkelement, enemyelement) {
-  var effective = false
-  var resist = false
-  if ((atkelement == "sharp") || (atkelement == "blunt")) {
-    if ((enemyelement == "ice") || (enemyelement == "grass")) {
-      effective = true
-    }
-    if ((enemyelement == "metal") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "fire") {
-    if ((enemyelement == "ice") || (enemyelement == "grass")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "rock")) {
-      resist = true
-    }
-  } else if (atkelement == "water") {
-    if ((enemyelement == "fire") || (enemyelement == "rock")) {
-      effective = true
-    }
-    if ((enemyelement == "grass") || (enemyelement == "poison")) {
-      resist = true
-    }
-  } else if (atkelement == "ice") {
-    if ((enemyelement == "grass") || (enemyelement == "water")) {
-      effective = true
-    }
-    if ((enemyelement == "ice") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "electric") {
-    if (enemyelement == "water") {
-      effective = true
-    }
-    if ((enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "geokinesis") {
-    if ((enemyelement == "ice") || (enemyelement == "electric")) {
-      effective = true
-    }
-    if ((enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "fighting") {
-    if ((enemyelement == "ice") || (enemyelement == "rock")) {
-      effective = true
-    }
-    if ((enemyelement == "psychic") || (enemyelement == "grass")) {
-      resist = true
-    }
-  } else if (atkelement == "psychic") {
-    if ((enemyelement == "fighting") || (enemyelement == "poison")) {
-      effective = true
-    }
-    if ((enemyelement == "light") || (enemyelement == "curse")) {
-      resist = true
-    }
-  } else if (atkelement == "dark") {
-    if ((enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "fighting") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "light") {
-    if ((enemyelement == "dark") || (enemyelement == "curse")) {
-      effective = true
-    }
-    if ((enemyelement == "metal") || (enemyelement == "psychic")) {
-      resist = true
-    }
-  } else if (atkelement == "poison") {
-    if ((enemyelement == "water") || (enemyelement == "grass")) {
-      effective = true
-    }
-    if ((enemyelement == "rock") || (enemyelement == "metal")) {
-      resist = true
-    }
-  } else if (atkelement == "metal") {
-    if ((enemyelement == "ice") || (enemyelement == "rock")) {
-      effective = true
-    }
-    if ((enemyelement == "water") || (enemyelement == "electric")) {
-      resist = true
-    }
-  } else if (atkelement == "curse") {
-    if ((enemyelement == "light") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "dark") || (enemyelement == "fighting")) {
-      resist = true
-    }
-  } else if (atkelement == "frostburn") {
-    if ((enemyelement == "grass") || (enemyelement == "water")) {
-      effective = true
-    }
-    if ((enemyelement == "fire") || (enemyelement == "ice")) {
-      resist = true
-    }
-  } else if (atkelement == "pierce") {
-    if ((enemyelement == "normal") || (enemyelement == "fighting")) {
-      effective = true
-    }
-  } else if (atkelement == "death") {
-    if ((enemyelement == "psychic") || (enemyelement == "light")) {
-      effective = true
-    }
-    if ((enemyelement == "curse") || (enemyelement == "dark")) {
-      resist = true
-    }
-  } else if (atkelement == "harmony") {
-    if ((enemyelement == "curse") || (enemyelement == "psychic")) {
-      effective = true
-    }
-    if ((enemyelement == "dark") || (enemyelement == "light")) {
-      resist = true
-    }
-  }
-
-  if (effective == true) {
-    return "effective"
-  } else if ((resist == true) || (atkelement == enemyelement)) {
-    return "resist"
-  } else {
-    return "none"
-  }
-}
-	
+<script>	
 function getChance(chance) {
   var chnce = (chance/100)
   var targ = Math.random()
@@ -433,6 +276,43 @@ function getChance(chance) {
     return false
   }
 }
+	
+function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype) {
+	var values = [0, "normal", false, false]
+	if dmgtype == "block" {
+		return [0, "block", false, false]
+	}
+	
+	values[1] = 1
+	
+	// Accuracy Checks
+	if moveacc < 100 {
+		var targ = moveacc/100
+		var acc = Math.random()
+		
+		if acc < targ {
+			return [0, "miss", false, false]
+		}
+	}
+	
+	// Damage Generation
+	var def = atk/enmdef
+	values[1] = 5*(Math.sqrt(def)*Math.sqrt(movepow))
+	
+	// Damage Types
+	if dmgtype == "weak" {
+		values[3] = true
+		values[2] = "weak"
+		values[1] = (values[1]*3)/2
+	} else if dmgtype == "resist" {
+		values[2] = "resist"
+		values[1] = values[1]/2
+	}
+	
+	return values
+}
+	
+	
 
 function dealDmg() {
   console.log('starting damage generation.');
@@ -442,8 +322,8 @@ function dealDmg() {
   document.getElementById("secondary").innerHTML = "";
 	
   // Base Damage
-  var dmg = 1
-  var atk = 1
+	var atk = document.getElementById("").innerHTML
+	var dmg = genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype)
   if (document.getElementById("atktype").value == "physical") {
     dmg = document.getElementById("physatk").value;
     atk = document.getElementById("physatk").value
