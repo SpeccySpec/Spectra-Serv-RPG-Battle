@@ -215,7 +215,7 @@ Soon</p>
 <p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="99"></p>
 
 <p>Input Move Power: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
-<p>Input Move Accuracy: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
+<p>Input Move Accuracy: <input type="number" id="moveacc" name="moveacc" min="1" max="2000"></p>
 <p>Input Move Type: <select name="atktype" id="atktype">
 			<option value="physical">Physical</option>
 			<option value="ranged">Ranged</option>
@@ -322,7 +322,19 @@ function dealDmg() {
   document.getElementById("secondary").innerHTML = "";
 	
   // Base Damage
-	var atk = document.getElementById("").innerHTML
+	var movetype = document.getElementById("atktype").innerHTML
+
+	var atk = document.getElementById("rngeatk").innerHTML
+	if movetype == "physical" {
+		atk = document.getElementById("physatk").innerHTML
+	}
+	
+	var prc = document.getElementById("acc").innerHTML
+	var luk = document.getElementById("luck").innerHTML
+	
+	var movepow = document.getElementById("pow").innerHTML
+	var moveacc = document.getElementById("moveacc").innerHTML
+
 	var dmg = genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype)
   if (document.getElementById("atktype").value == "physical") {
     dmg = document.getElementById("physatk").value;
