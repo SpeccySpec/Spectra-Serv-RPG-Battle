@@ -276,11 +276,12 @@ function getChance(chance) {
     return false
   }
 }
+
 	
 function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype) {
-	var values = [0, "normal", false, false]
+	var values = {0, "normal", false, false}
 	if dmgtype == "block" {
-		return [0, "block", false, false]
+		return {0, "block", false, false}
 	}
 	
 	values[1] = 1
@@ -288,10 +289,10 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 	// Accuracy Checks
 	if moveacc < 100 {
 		var targ = moveacc/100
-		var acc = Math.random()
+		var acc = (Math.random()+(prc/100))
 		
 		if acc < targ {
-			return [0, "miss", false, false]
+			return {0, "miss", false, false}
 		}
 	}
 	
