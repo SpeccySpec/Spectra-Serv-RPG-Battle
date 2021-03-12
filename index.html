@@ -281,8 +281,8 @@ function getChance(chance) {
 	
 function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype) {
 	var values = [0, "normal", false, false];
-	if dmgtype == "block" {
-		return [0, dmgtype, false, false]
+	if dmgtype === "block" {
+		return [0, dmgtype, false, false];
 	}
 	
 	values[0] = 1
@@ -302,11 +302,11 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 	values[0] = 5*(Math.sqrt(def)*Math.sqrt(movepow));
 	
 	// Damage Types
-	if dmgtype == "weak" {
+	if dmgtype === "weak" {
 		values[2] = true;
 		values[1] = "weak";
 		values[0] = (values[1]*3)/2;
-	} else if dmgtype == "resist" {
+	} else if dmgtype === "resist" {
 		values[1] = "resist";
 		values[0] = values[1]/2;
 	}
