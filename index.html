@@ -305,10 +305,10 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 	if (dmgtype === "weak") {
 		values[2] = true;
 		values[1] = "weak";
-		values[0] = (values[1]*3)/2;
+		values[0] = (values[0]*3)/2;
 	} else if (dmgtype === "resist") {
 		values[1] = "resist";
-		values[0] = values[1]/2;
+		values[0] = values[0]/2;
 	}
 	
 	// Crits
@@ -398,14 +398,18 @@ function dealDmg() {
   if (dmg[1] == "miss") {
     document.getElementById("damage").innerHTML = "It was dodged!";
     return false
+  } else if (dmg[1] == "repel") {
+    document.getElementById("damage").innerHTML = "The user took " + result + "" + crit + " damage!";
+  } else if (dmg[1] == "drain") {
+    document.getElementById("damage").innerHTML = "The enemy drained " + result + " damage.";
   } else {
     if (result < 1) {
       result = 1;
     }
     if (status == "brainwashed") {
       if (statuschance > 0.6) {
-	 			document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
-				return true
+	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
+	 return true
       }
     }
     if (dmg[1] == "weak") {
