@@ -313,7 +313,7 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 	
 	// Crits
 	if (getChance(90-luk)) {
-		values[0] = values[1]*2;
+		values[0] = values[0]*2;
 		values[3] = true;
 	}
 	
@@ -356,7 +356,7 @@ function dealDmg() {
   console.log('dmg is ' + dmg[0] + '.');
   
   // Critical hits
-	var crit = ""
+  var crit = ""
   if (dmg[3] == true) {
      crit = "💥"
   }
@@ -368,12 +368,12 @@ function dealDmg() {
 	
   // Randomness!
   var rand = Math.floor(Math.random() * 10);
-  console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[1] + '.');
+  console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[0] + '.');
   dmg[0] = +dmg[0] + +rand;
   console.log('dmg is ' + dmg[0] + '.');
 
   // Get results
-	var level = document.getElementById("level").value;
+  var level = document.getElementById("level").value;
   var result = Math.round((dmg[0]*(level/10))+(level/5));
   console.log('total dmg is ' + result + '.');
 
