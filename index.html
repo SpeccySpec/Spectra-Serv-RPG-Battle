@@ -330,22 +330,22 @@ function dealDmg() {
   document.getElementById("secondary").innerHTML = "";
 	
   // Base Damage
-	var movetype = document.getElementById("atktype").innerHTML
+	var movetype = document.getElementById("atktype").value
 
-	var atk = document.getElementById("rngeatk").innerHTML
+	var atk = document.getElementById("rngeatk").value
 	if movetype == "physical" {
-		atk = document.getElementById("physatk").innerHTML
+		atk = document.getElementById("physatk").value
 	}
 	
-	var prc = document.getElementById("acc").innerHTML
-	var luk = document.getElementById("luck").innerHTML
+	var prc = document.getElementById("acc").value
+	var luk = document.getElementById("luck").value
 	
-	var enmdef = document.getElementById("def").innerHTML
-	var enmagl = document.getElementById("agl").innerHTML
+	var enmdef = document.getElementById("def").value
+	var enmagl = document.getElementById("agl").value
 	
-	var movepow = document.getElementById("pow").innerHTML
-	var moveacc = document.getElementById("moveacc").innerHTML
-	var dmgtype = document.getElementById("dmgtype").innerHTML
+	var movepow = document.getElementById("pow").value
+	var moveacc = document.getElementById("moveacc").value
+	var dmgtype = document.getElementById("dmgtype").value
 
 	if dmgtype == "block" {
 		document.getElementById("damage").innerHTML = "But it was blocked!"
