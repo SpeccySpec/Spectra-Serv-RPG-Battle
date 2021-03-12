@@ -292,7 +292,7 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 		var targ = moveacc/100;
 		var acc = (Math.random()+(prc/100));
 		
-		if (acc < targ) {
+		if (acc > targ) {
 			return [0, "miss", false, false]
 		}
 	}
