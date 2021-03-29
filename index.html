@@ -208,22 +208,22 @@ Soon</p>
 <!--<p>Character Name:
 <input type="text" id="charname" name="charactername"></p>-->
 
-<p>Input Level: <input type="number" id="level" name="level" min="1" max="100"></p>
-<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="99"></p>
-<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="99"></p>
-<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="99"></p>
-<p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="99"></p>
+<p>Input Level: <input type="number" id="level" name="level" min="1" max="99"></p>
+<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="10"></p>
+<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="10"></p>
+<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="10"></p>
+<p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="10"></p>
 
 <p>Input Move Power: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
-<p>Input Move Accuracy: <input type="number" id="moveacc" name="moveacc" min="1" max="2000"></p>
+<p>Input Move Accuracy: <input type="number" id="moveacc" name="moveacc" min="1" max="9999"></p>
 <p>Input Move Type: <select name="atktype" id="atktype">
 			<option value="physical">Physical</option>
 			<option value="ranged">Ranged</option>
 		    </select></p>
 	
-<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="1000"></p>
-<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="99"></p>
-<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="99"></p>
+<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
+<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"></p>
+<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"></p>
   
 <p>Effectiveness:
 <select name="dmgtype" id="dmgtype">
@@ -277,7 +277,6 @@ function getChance(chance) {
     return false
   }
 }
-
 	
 function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype) {
 	var values = [0, "normal", false, false];
