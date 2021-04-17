@@ -208,34 +208,21 @@ Soon</p>
 <!--<p>Character Name:
 <input type="text" id="charname" name="charactername"></p>-->
 
+	<p>Stats</p>
 <p>Input Level: <input type="number" id="level" name="level" min="1" max="99"></p>
 <p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="10"></p>
 <p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="10"></p>
 <p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="10"></p>
 <p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="10"></p>
 
+	<p>Move Stats</p>
 <p>Input Move Power: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
 <p>Input Move Accuracy: <input type="number" id="moveacc" name="moveacc" min="1" max="9999"></p>
 <p>Input Move Type: <select name="atktype" id="atktype">
 			<option value="physical">Physical</option>
 			<option value="ranged">Ranged</option>
 		    </select></p>
-	
-<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
-<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"></p>
-<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"></p>
-  
-<p>Effectiveness:
-<select name="dmgtype" id="dmgtype">
-  <option value="normal">Normal</option>
-  <option value="weak">Effective</option>
-  <option value="resist">Resist</option>
-  <option value="block">Block</option>
-  <option value="repel">Repel</option>
-  <option value="drain">Drain</option>
-</select></p>
-	
-<p>Under Status Effect:
+<p>Inflict Status Effect:
 <select name="statuseffect" id="status">
   <option value="none">None</option>
   <option value="burn">Burn</option>
@@ -248,6 +235,22 @@ Soon</p>
   <option value="brainwashed">Brainwashed</option>
   <option value="radiation">Radiation</option>
   <option value="stardust">Stardust</option>
+</select></p>
+	
+	<p>Enemy Stats</p>
+<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
+<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"></p>
+<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"></p>
+<p>Input Enemy Luck: <input type="number" id="eluk" name="eluk" min="1" max="12"></p>
+  
+<p>Effectiveness:
+<select name="dmgtype" id="dmgtype">
+  <option value="normal">Normal</option>
+  <option value="weak">Effective</option>
+  <option value="resist">Resist</option>
+  <option value="block">Block</option>
+  <option value="repel">Repel</option>
+  <option value="drain">Drain</option>
 </select></p>
 
 <p>
@@ -278,28 +281,28 @@ function getChance(chance) {
   }
 }
 	
-function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype) {
-	var values = [0, "normal", false, false];
+function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enmagl, enmluk, dmgtype) {
+	var values = [0, "normal", false, false, false];
 	if (dmgtype === "block") {
-		return [0, dmgtype, false, false];
+		return [0, dmgtype, false, false, false]
 	}
 	
 	values[0] = 1
 	
 	// Accuracy Checks
 	if (moveacc < 100) {
-		var targ = moveacc/100;
-		var acc = (Math.random()+(prc/100));
+		var targ = (moveacc+(prc-enmagl))/100;
+		var acc = Math.random();
 		
 		if (acc > targ) {
-			return [0, "miss", false, false]
+			return [0, "miss", false, false, false]
 		}
 	}
 	
 	// Damage Generation
 	var def = atk/enmdef;
 	values[0] = 5*(Math.sqrt(def)*Math.sqrt(movepow));
-	
+
 	// Damage Types
 	if (dmgtype === "weak") {
 		values[2] = true;
@@ -310,8 +313,11 @@ function genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgty
 		values[0] = values[0]/2;
 	}
 	
-	// Crits
-	if (getChance(90-luk)) {
+	// Crits		
+	var targ = (movecrit+(luk-enmluk))/100;
+	var crit = Math.random();
+		
+	if (crit < targ) {
 		values[0] = values[0]*2;
 		values[3] = true;
 	}
@@ -329,32 +335,33 @@ function dealDmg() {
   document.getElementById("secondary").innerHTML = "";
 	
   // Base Damage
-	var movetype = document.getElementById("atktype").value
+var movetype = document.getElementById("atktype").value
 
-	var atk = document.getElementById("rngeatk").value
-	if (movetype == "physical") {
-		atk = document.getElementById("physatk").value
-	}
-	
-	var prc = document.getElementById("acc").value
-	var luk = document.getElementById("luck").value
-	
-	var enmdef = document.getElementById("def").value
-	var enmagl = document.getElementById("agl").value
-	
-	var movepow = document.getElementById("pow").value
-	var moveacc = document.getElementById("moveacc").value
-	var dmgtype = document.getElementById("dmgtype").value
+var atk = document.getElementById("rngeatk").value
+if (movetype == "physical") {
+	atk = document.getElementById("physatk").value
+}
 
-	if (dmgtype == "block") {
-		document.getElementById("damage").innerHTML = "But it was blocked!"
-		return false
-	}
-		
-	var dmg = genDmg(atk, prc, luk, movepow, moveacc, movetype, enmdef, enmagl, dmgtype)
-  console.log('dmg is ' + dmg[0] + '.');
+var prc = document.getElementById("acc").value
+var luk = document.getElementById("luck").value
+
+var enmdef = document.getElementById("def").value
+var enmagl = document.getElementById("agl").value
+var enmluk = document.getElementById("eluk").value
+	
+var movepow = document.getElementById("pow").value
+var moveacc = document.getElementById("moveacc").value
+var movecrit = document.getElementById("movecrit").value
+var dmgtype = document.getElementById("dmgtype").value
+if (dmgtype == "block") {
+	document.getElementById("damage").innerHTML = "But it was blocked!"
+	return false
+}
+	
+var dmg = genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enmagl, enmluk, dmgtype)
+console.log('dmg is ' + dmg[0] + '.');
   
-  // Critical hits
+// Critical hits
   var crit = ""
   if (dmg[3] == true) {
      crit = "💥"
