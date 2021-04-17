@@ -324,10 +324,11 @@ function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enm
 		values[3] = true;
 	}
 	
+	// Status
+	// unfinished
+
 	return values
 }
-	
-	
 
 function dealDmg() {
   console.log('starting damage generation.');
@@ -384,22 +385,6 @@ console.log('dmg is ' + dmg[0] + '.');
   var level = document.getElementById("level").value;
   var result = Math.round((dmg[0]*(level/10))+(level/5));
   console.log('total dmg is ' + result + '.');
-
-  // Apply Status Effects to Attack
-  var status = document.getElementById("status").value
-  if ((status == "burn") || (status == "poison")) {
-    result = Math.round(result/2);
-  }
-  if (status == "freeze") {
-    var escapechance = Math.random();
-    if (escapechance > 0.75) {
-      document.getElementById("damage").innerHTML = "Escaped from the ice!";
-      return false
-    } else {
-      document.getElementById("damage").innerHTML = "Frozen Solid!";
-      return false
-    }
-  }
 	
   // Dodge And Damage
   var statuschance = Math.random();
