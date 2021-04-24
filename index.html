@@ -447,7 +447,7 @@ function dealDmg() {
 	// Display Weakness
 	if (dmg[2] == true){
 		finaltext = finaltext+"🡅";
-	} else if (dmgtype === "resist")
+	} else if (dmgtype === "resist") {
 		finaltext = finaltext+"🡇";
 	}
 	
@@ -485,6 +485,7 @@ function dealDmg() {
 	}
   		
 	document.getElementById("damage").innerHTML = finaltext;
+	return true
 }
 
 function randChance() {
