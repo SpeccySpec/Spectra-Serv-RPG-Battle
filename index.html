@@ -239,7 +239,7 @@ Soon</p>
   <option value="fear">Fear</option>
   <option value="ego">Ego</option>
   <option value="paranoia">Paranoia</option>
-</select></p>
+</select> | Chance: <input type="number" id="statuschance" name="movestatuschance" min="1" max="999"></p>
 	
 	<p>Enemy Stats</p>
 <p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
@@ -285,7 +285,7 @@ function getChance(chance) {
   }
 }
 	
-function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enmagl, enmluk, dmgtype) {
+function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatuschance, movetype, enmdef, enmagl, enmluk, dmgtype) {
 	var values = [0, "normal", false, false, false];
 	if (dmgtype === "block") {
 		return [0, dmgtype, false, false, false]
@@ -318,19 +318,56 @@ function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enm
 	}
 	
 	// Crits		
-	var targ = (movecrit+(luk-enmluk))/100;
+	var targ2 = (movecrit+(luk-enmluk))/100;
 	var crit = Math.random();
-		
-	if (crit < targ) {
+	if (crit < targ2) {
 		values[0] = values[0]*2;
 		values[3] = true;
 	}
 	
 	// Status
-	// unfinished
+	var targ3 = (movestatuschance+(luk-enmluk))/100;
+	var st = Math.random();
+	if (st < targ3) {
+		values[4] = true;
+	}
 
 	return values
 }
+	
+// Just inflict Status
+function inflictStatus(status, chance, luk, enmluk) {
+	var targ = (chance+(luk-enmluk))/100;
+	var chnce = Math.random();
+	if (chnce < targ) {
+		if (status === "burn") {
+			document.getElementById("damage").innerHTML = "The enemy was burned!"
+		} else if (status === "bleed") {
+			document.getElementById("damage").innerHTML = "The enemy was inflicted with bleed!"
+		} else if (status === "poison") {
+			document.getElementById("damage").innerHTML = "The enemy was poisoned!"
+		} else if (status === "toxic") {
+			document.getElementById("damage").innerHTML = "The enemy was inflicted with Toxic!"
+		} else if (status === "freeze") {
+			document.getElementById("damage").innerHTML = "The enemy was frozen!"
+		} else if (status === "paralyze") {
+			document.getElementById("damage").innerHTML = "The enemy was paralyzed!"
+		} else if (status === "brainwash") {
+			document.getElementById("damage").innerHTML = "The enemy was brainwashed!"
+		} else if (status === "ego") {
+			document.getElementById("damage").innerHTML = "The enemy was inflicted with Ego!"
+		} else if (status === "fear") {
+			document.getElementById("damage").innerHTML = "The enemy was inflicted with Fear!"
+		} else if (status === "paranoia") {
+			document.getElementById("damage").innerHTML = "The enemy was inflicted with Paranoia!"
+		}
+		
+		return true
+	}
+	
+	return false
+}
+		
 
 function dealDmg() {
   console.log('starting damage generation.');
@@ -357,160 +394,89 @@ var enmluk = document.getElementById("eluk").value
 var movepow = document.getElementById("pow").value
 var moveacc = document.getElementById("moveacc").value
 var movecrit = document.getElementById("movecrit").value
+var movestatus = document.getElementById("status").value
+var movestatuschance = document.getElementById("statuschance").value
+
 var dmgtype = document.getElementById("dmgtype").value
 if (dmgtype == "block") {
-	document.getElementById("damage").innerHTML = "But it was blocked!"
+	document.getElementById("damage").innerHTML = "It was blocked!";
 	return false
 }
 	
-var dmg = genDmg(atk, prc, luk, movepow, moveacc, movecrit, movetype, enmdef, enmagl, enmluk, dmgtype)
+if (movepow <= 0 && movestatus != "none") {
+	inflictStatus(movestatus, movestatuschance, luk, enmluk);
+	return
+}
+
+var dmg = genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatuschance, movetype, enmdef, enmagl, enmluk, dmgtype);
+var finaltext = "";
+	
+// Randomness!
+var rand = Math.floor(Math.random() * 10);
+console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[0] + '.');
+dmg[0] = +dmg[0] + +rand;
 console.log('dmg is ' + dmg[0] + '.');
-  
-// Critical hits
-  var crit = ""
-  if (dmg[3] == true) {
-     crit = "💥"
+
+// Get results
+var level = document.getElementById("level").value;
+var result = Math.round(dmg[0]);
+console.log('total dmg is ' + result + '.');
+	
+// Dodge And Damage
+var statuschance = Math.random();
+if (dmg[1] == "miss") {
+	finaltext = "It was dodged!"
+  document.getElementById("damage").innerHTML = finaltext;
+  return false
+} else if (dmg[1] == "repel") {
+  finaltext = "It was repelled! The user took " + result
+} else if (dmg[1] == "drain") {
+  finaltext = "It was drained! The enemy drained " + result;
+} else {
+  if (result < 1) {
+    result = 1;
   }
 
-  // Some types have secondary effects.
-  var effect = Math.random();
-  if (effect > 0.85) {
-  }
-	
-  // Randomness!
-  var rand = Math.floor(Math.random() * 10);
-  console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[0] + '.');
-  dmg[0] = +dmg[0] + +rand;
-  console.log('dmg is ' + dmg[0] + '.');
-
-  // Get results
-  var level = document.getElementById("level").value;
-  var result = Math.round(dmg[0]);
-  console.log('total dmg is ' + result + '.');
-	
-  // Dodge And Damage
-  var statuschance = Math.random();
-  if (dmg[1] == "miss") {
-    document.getElementById("damage").innerHTML = "It was dodged!";
-    return false
-  } else if (dmg[1] == "repel") {
-    document.getElementById("damage").innerHTML = "The user took " + result + "" + crit + " damage!";
-  } else if (dmg[1] == "drain") {
-    document.getElementById("damage").innerHTML = "The enemy drained " + result + " damage.";
-  } else {
-    if (result < 1) {
-      result = 1;
-    }
-    if (status == "brainwashed") {
-      if (statuschance > 0.6) {
-	 document.getElementById("damage").innerHTML = "The user damaged an ally by " + dmg + " damage!";
-	 return true
-      }
-    }
-    if (dmg[1] == "weak") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + "↑ damage!";
-    } else if (dmg[1] == "resist") {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + "↓ damage!";
-    } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + result + "" + crit + " damage!";
-    }
-    document.getElementById("opphp").value = (document.getElementById("opphp").value - (result/1))
-    return true
-  }
+	finaltext = "The enemy took " + result;
 }
 	
-function multiAttack() {
-  document.getElementById("damage").innerHTML = "";
-  document.getElementById("secondary").innerHTML = "";
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
-  var defense = document.getElementById("defense").value;
-  var list = [2, 2, 2, 2, 3, 3, 3, 4, 4, 5]; 
-  var atkcount = list[Math.floor(Math.random() * (10 - 1 + 1) + 1)];
-  if (atkcount == 2) {
-     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk3 = 0
-     var atk4 = 0
-     var atk5 = 0
-  } else if (atkcount == 3) {
-     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk4 = 0
-     var atk5 = 0
-  } else if (atkcount == 4) {
-     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk3 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk4 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk5 = 0
-  } else {
-     var atk1 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk2 = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-     var atk3 = Math.floor(Math.random() * (11 - 1 + 1) + 1);
-     var atk4 = Math.floor(Math.random() * (12 - 1 + 1) + 1);
-     var atk5 = Math.floor(Math.random() * (13 - 1 + 1) + 1);
-  }
-  var totalatk = ((atk1/1)  + (atk2/1) + (atk3/1) + (atk4/1) + (atk5/1))
-  var crit = Math.random();
-  if (crit > 0.85) {
-     document.getElementById("critical?").innerHTML = "(Critical)";
-     atk1 = Math.floor((atk1/1) + (atk1 / 2));
-     atk2 = Math.floor((atk2/1) + (atk2 / 2));
-     atk3 = Math.floor((atk3/1) + (atk3 / 2));
-     atk4 = Math.floor((atk4/1) + (atk4 / 2));
-     atk5 = Math.floor((atk5/1) + (atk5 / 2));
-  } else {
-     document.getElementById("critical?").innerHTML = "";
-  }
-  var effect = Math.random();
-  if ((effect > 0.85) & (crit <= 0.85)) {
-     if ((atkelement == "sharp") || (atkelement == "pierce")) {
-        document.getElementById("secondary").innerHTML = "(Inflicted with Bleed)";
-     } else if ((atkelement == "fire") || (atkelement == "frostburn")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Burn)";
-     } else if ((atkelement == "ice") || (atkelement == "frostburn")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Freeze)";
-     } else if (atkelement == "electric") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Paralysis)";
-     } else if (atkelement == "poison") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Poison)";
-     } else if ((atkelement == "curse") || (atkelement == "death")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Fear)";
-     } else if ((atkelement == "light") || (atkelement == "harmony")) {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Dizziness)";
-     } else if (atkelement == "psychic") {
-       document.getElementById("secondary").innerHTML = "(Inflicted with Brainwash)";
-     }
-  }
-  if (document.getElementById("element").value == "nuclear") {
-    document.getElementById("secondary").innerHTML = "(Inflicted with Radiation)";
-  }
-  var effective = typeEffect(atkelement, enemyelement)
-  var dodgechance = Math.random();
-  dodgechance = dodgechance+(document.getElementById("agility").value/50);
-  var accurate = (document.getElementById("accuracy").value/50);
-  dodgechance = (dodgechance - accurate);
-  if (dodgechance < 0.95) {
-    if (atkcount == 2) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " damage! (" + totalatk + " total)";
-    } else if (atkcount == 3) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " damage! (" + totalatk + " total)";
-    } else if (atkcount == 4) {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " damage! (" + totalatk + " total)";
-    } else {
-      document.getElementById("damage").innerHTML = "The enemy took " + atk1 + " + " + atk2 + " + " + atk3 + " + " + atk4 + " + " + atk5 + " damage! (" + totalatk + " total)";
-    }
-  } else {
-    document.getElementById("damage").innerHTML = "It was dodged!";
-    if (crit > 0.85) {
-      document.getElementById("critical?").innerHTML = "(Missed crit :()";
-    }
-  }
-//if (document.getElementById("record").value == true) {
-  document.getElementById("opphp").value = (document.getElementById("opphp").value - (totalatk/1))
-//}
+// Display Weakness
+if (dmg[2] == true){
+	finaltext = finaltext+"🡅";
+}
+	
+// Display Crits
+if (dmg[3] == true)
+	finaltext = finaltext+"☄";
+}
+	
+// Display the "damage" part of the text
+finaltext = finaltext+" damage!";
+	
+// Now display status
+if (dmg[4] == true) {
+	if (status === "burn") {
+		finaltext = finaltext+" They were burned!"
+	} else if (status === "bleed") {
+		finaltext = finaltext+" They were inflicted with bleed!"
+	} else if (status === "poison") {
+		finaltext = finaltext+" They were poisoned!"
+	} else if (status === "toxic") {
+		finaltext = finaltext+" They were inflicted with Toxic!"
+	} else if (status === "freeze") {
+		finaltext = finaltext+" They were frozen!"
+	} else if (status === "paralyze") {
+		finaltext = finaltext+" They were paralyzed!"
+	} else if (status === "brainwash") {
+		finaltext = finaltext+" They were brainwashed!"
+	} else if (status === "ego") {
+		finaltext = finaltext+" They were inflicted with Ego!"
+	} else if (status === "fear") {
+		finaltext = finaltext+" They were inflicted with Fear!"
+	} else if (status === "paranoia") {
+		finaltext = finaltext+" They were inflicted with Paranoia!"
+	}
+}
 }
 
 function randChance() {
