@@ -306,6 +306,10 @@ function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatu
 	// Damage Generation
 	var def = atk/enmdef;
 	values[0] = 5*(Math.sqrt(def)*Math.sqrt(movepow));
+	
+	if (dmgtype === "repel" || dmgtype === "drain") {
+		return [values[0], dmgtype, false, false, false]
+	}
 
 	// Damage Types
 	if (dmgtype === "weak") {
