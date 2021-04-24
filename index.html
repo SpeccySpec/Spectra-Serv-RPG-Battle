@@ -425,16 +425,16 @@ function dealDmg() {
 	var statuschance = Math.random();
 	if (dmg[1] == "miss") {
 		finaltext = "It was dodged!"
-  	document.getElementById("damage").innerHTML = finaltext;
-  	return false
+  		document.getElementById("damage").innerHTML = finaltext;
+  		return false
 	} else if (dmg[1] == "repel") {
-  	finaltext = "It was repelled! The user took " + result
+  		finaltext = "It was repelled! The user took " + result
 	} else if (dmg[1] == "drain") {
-  	finaltext = "It was drained! The enemy drained " + result;
+  		finaltext = "It was drained! The enemy drained " + result;
 	} else {
-  	if (result < 1) {
-  	  result = 1;
-  	}
+  		if (result < 1) {
+  			 result = 1;
+  		}
 
 		finaltext = "The enemy took " + result;
 	}
@@ -476,6 +476,9 @@ function dealDmg() {
 			finaltext = finaltext+" They were inflicted with Paranoia!"
 		}
 	}
+  		
+	document.getElementById("damage").innerHTML = finaltext;
+	return true
 }
 
 function randChance() {
