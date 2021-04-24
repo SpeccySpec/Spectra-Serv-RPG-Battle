@@ -197,6 +197,7 @@ canvas { display: block; vertical-align: bottom; }
 <div id="container">
 <h1>(Very not) DnD damage generator!</h1>
 <p>A tool for reducing battle time</p>
+<p>If a stat has a 2nd box next to it, it's for buffs.</p>
 	
 <p>Presets:
 Soon</p>
@@ -210,9 +211,9 @@ Soon</p>
 
 	<p>Stats</p>
 <p>Input Level: <input type="number" id="level" name="level" min="1" max="99"></p>
-<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="10"></p>
-<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="10"></p>
-<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="10"></p>
+<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="10"><input type="number" id="strbuff" name="strbuff" min="-3" max="3"></p>
+<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="10"><input type="number" id="rngbuff" name="rngbuff" min="-3" max="3"></p>
+<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="10"><input type="number" id="prcbuff" name="prcbuff" min="-3" max="3"></p>
 <p>Input Charisma: <input type="number" id="chr" name="chr" min="1" max="10"></p>
 <p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="10"></p>
 
@@ -242,8 +243,8 @@ Soon</p>
 	
 	<p>Enemy Stats</p>
 <p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
-<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"></p>
-<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"></p>
+<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"><input type="number" id="defbuff" name="defbuff" min="-3" max="3"></p>
+<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"><input type="number" id="aglbuff" name="aglbuff" min="-3" max="3"></p>
 <p>Input Enemy Luck: <input type="number" id="eluk" name="eluk" min="1" max="12"></p>
   
 <p>Effectiveness:
