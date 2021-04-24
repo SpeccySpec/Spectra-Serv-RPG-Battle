@@ -322,9 +322,10 @@ function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatu
 	}
 	
 	// Crits		
-	var targ2 = (movecrit+(luk-enmluk))/100;
-	var crit = Math.random();
-	if (crit < targ2) {
+	var targ2 = (movecrit+(luk-enmluk));
+	var crit = (Math.floor(Math.random()*100));
+	console.log(crit+", "+targ2)
+	if (crit <= targ2) {
 		values[0] = values[0]*2;
 		values[3] = true;
 	}
@@ -446,6 +447,8 @@ function dealDmg() {
 	// Display Weakness
 	if (dmg[2] == true){
 		finaltext = finaltext+"🡅";
+	} else if (dmgtype === "resist")
+		finaltext = finaltext+"🡇";
 	}
 	
 	// Display Crits
