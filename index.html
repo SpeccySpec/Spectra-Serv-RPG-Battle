@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="text/plain" href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css">
 </head>
-<title>RPG Battle</title>
+<title>Cosma OST</title>
   
 <style>
 /*Style the Container*/
@@ -94,82 +94,6 @@
 .count-particles {
   border-radius: 0 0 0.189rem 0.189rem;
 }
-	
-/*Button Styles*/
-.atkbutton {
-    appearance: button;
-    color: -internal-light-dark(buttontext, rgb(255, 125, 74));
-    background-color: -internal-light-dark(rgb(255, 72, 0), rgb(89, 15, 0));
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    box-sizing: border-box;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-image: initial;
-    cursor: crosshair;
-}
-	
-.superatkbutton {
-    appearance: button;
-    color: -internal-light-dark(buttontext, rgb(255, 244, 117));
-    background-color: -internal-light-dark(rgb(255, 235, 0), rgb(168, 123, 0));
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    box-sizing: border-box;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-image: initial;
-    cursor: cell;
-}
-	
-.multiatkbutton {
-    appearance: button;
-    color: -internal-light-dark(buttontext, rgb(143, 248, 255));
-    background-color: -internal-light-dark(rgb(0, 221, 255), rgb(0, 101, 163));
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    box-sizing: border-box;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-image: initial;
-    cursor: move;
-}
 
 /* Particles */
 canvas { display: block; vertical-align: bottom; }
@@ -195,335 +119,62 @@ canvas { display: block; vertical-align: bottom; }
 
 <center>
 <div id="container">
-<h1>(Very not) DnD damage generator!</h1>
-<p>A tool for reducing battle time</p>
-<p>If a stat has a 2nd box next to it, it's for buffs.</p>
-	
-<p>Presets:
-Soon</p>
-<!--<select name="select" id="select">
-  <option value="none">None</option>
-</select></p>
-<button onclick="loadPreset()">Load</button> -->
-                                                                                   <hr />
-<!--<p>Character Name:
-<input type="text" id="charname" name="charactername"></p>-->
+<h1>bad cosma ost/h1>
 
-	<p>Stats</p>
-<p>Input Level: <input type="number" id="level" name="level" min="1" max="99"></p>
-<p>Input Strength: <input type="number" id="physatk" name="physatk" min="1" max="10"><input type="number" id="strbuff" name="strbuff" min="-3" max="3"></p>
-<p>Input Magic: <input type="number" id="rngeatk" name="rngeatk" min="1" max="10"><input type="number" id="rngbuff" name="rngbuff" min="-3" max="3"></p>
-<p>Input Perception: <input type="number" id="acc" name="acc" min="1" max="10"><input type="number" id="prcbuff" name="prcbuff" min="-3" max="3"></p>
-<p>Input Charisma: <input type="number" id="chr" name="chr" min="1" max="10"></p>
-<p>Input Luck: <input type="number" id="luck" name="luck" min="1" max="10"></p>
+	<p>Mechanical</p>
+<p>Instrumental:
+<audio controls>
+  <source src="Mechanical_Inst.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>Voices:
+<audio controls>
+  <source src="Mechanical_Voices.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>All:
+<audio controls>
+  <source src="Mechanical.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
 
-	<p>Move Stats</p>
-<p>Input Move Power: <input type="number" id="pow" name="pow" min="1" max="2000"></p>
-<p>Input Move Accuracy: <input type="number" id="moveacc" name="moveacc" min="1" max="999"></p>
-<p>Input Move Crit: <input type="number" id="movecrit" name="movecrit" min="1" max="999"></p>
-<p>Input Move Type: <select name="atktype" id="atktype">
-			<option value="physical">Physical</option>
-			<option value="ranged">Ranged</option>
-		    </select></p>
-<p>Inflict Status Effect:
-<select name="statuseffect" id="status">
-  <option value="none">None</option>
-  <option value="burn">Burn</option>
-  <option value="bleed">Bleeding</option>
-  <option value="poison">Poison</option>
-  <option value="toxic">Toxic</option>
-  <option value="freeze">Freeze</option>
-  <option value="paralyze">Paralyze</option>
-  <option value="brainwashed">Brainwashed</option>
-  <option value="dizziness">Dizziness</option>
-  <option value="fear">Fear</option>
-  <option value="ego">Ego</option>
-  <option value="paranoia">Paranoia</option>
-</select> | Chance: <input type="number" id="statuschance" name="movestatuschance" min="1" max="999"></p>
-	
-	<p>Enemy Stats</p>
-<p>Input Enemy HP: <input type="number" id="opphp" name="hp" min="1" max="9999"></p>
-<p>Input Enemy Endurance: <input type="number" id="def" name="def" min="1" max="12"><input type="number" id="defbuff" name="defbuff" min="-3" max="3"></p>
-<p>Input Enemy Agility: <input type="number" id="agl" name="agl" min="1" max="12"><input type="number" id="aglbuff" name="aglbuff" min="-3" max="3"></p>
-<p>Input Enemy Luck: <input type="number" id="eluk" name="eluk" min="1" max="12"></p>
-  
-<p>Effectiveness:
-<select name="dmgtype" id="dmgtype">
-  <option value="normal">Normal</option>
-  <option value="weak">Effective</option>
-  <option value="resist">Resist</option>
-  <option value="block">Block</option>
-  <option value="repel">Repel</option>
-  <option value="drain">Drain</option>
-</select></p>
+	<p>Malfunction</p>
+<p>Instrumental:
+<audio controls>
+  <source src="Malfunction_Inst.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>Voices:
+<audio controls>
+  <source src="Malfunction_Voices.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>All:
+<audio controls>
+  <source src="Malfunction.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
 
-<p>
-<button class="atkbutton" onclick="dealDmg()">Attack!</button>
-<button class="multiatkbutton" onclick="multiAttack()">Multi Attack!</button>
-</p>
-
-<p>
-<button class="atkbutton" onclick="randChance()">Random Chance</button>
-</p>
-
-<p id="damage"></p><p id="critical?"></p>
-<p id="secondary"></p>
-
-	<p>Make notes here if you need to.</p>
-<input type="text" id="1stnote" name="1stnote"><input type="text" id="2ndnote" name="2ndnote">
+	<p>Short-Circuit</p>
+<p>Instrumental:
+<audio controls>
+  <source src="Short-Circuit_Inst.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>Voices:
+<audio controls>
+  <source src="Short-Circuit_Voices.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
+<p>All:
+<audio controls>
+  <source src="Short-Circuit.ogg" type="audio/ogg">
+Your browser does not support the audio element.
+</audio></p>
 </center>
 </div>
 
-<script>	
-function getChance(chance) {
-  var chnce = (chance/100)
-  var targ = Math.random()
-  if (targ >= chnce) {
-    return true
-  } else {
-    return false
-  }
-}
-	
-function genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatuschance, movetype, enmdef, enmagl, enmluk, dmgtype) {
-	var values = [0, "normal", false, false, false];
-	if (dmgtype === "block") {
-		return [0, dmgtype, false, false, false]
-	}
-	
-	values[0] = 1
-	
-	// Accuracy Checks
-	if (moveacc < 100) {
-		var targ = (moveacc+(prc-enmagl))/100;
-		var acc = Math.random();
-		
-		if (acc > targ) {
-			return [0, "miss", false, false, false]
-		}
-	}
-	
-	// Damage Generation
-	var def = atk/enmdef;
-	values[0] = 5*(Math.sqrt(def)*Math.sqrt(movepow));
-	
-	if (dmgtype === "repel" || dmgtype === "drain") {
-		return [values[0], dmgtype, false, false, false]
-	}
-
-	// Damage Types
-	if (dmgtype === "weak") {
-		values[2] = true;
-		values[1] = "weak";
-		values[0] = (values[0]*3)/2;
-	} else if (dmgtype === "resist") {
-		values[1] = "resist";
-		values[0] = values[0]/2;
-	}
-	
-	// Crits
-	var targ2 = (movecrit+(luk-enmluk));
-	var crit = (Math.floor(Math.random()*100));
-	console.log(crit+", "+targ2);
-	if (crit <= targ2) {
-		values[0] = values[0]*2;
-		values[3] = true;
-	}
-	
-	// Status
-	var targ3 = (movestatuschance+(luk-enmluk))/100;
-	var st = Math.random();
-	if (st < targ3) {
-		values[4] = true;
-	}
-
-	return values
-}
-	
-// Just inflict Status
-function inflictStatus(status, chance, luk, enmluk) {
-	var targ = (chance+(luk-enmluk))/100;
-	var chnce = Math.random();
-	if (chnce < targ) {
-		if (status === "burn") {
-			document.getElementById("damage").innerHTML = "The enemy was burned!"
-		} else if (status === "bleed") {
-			document.getElementById("damage").innerHTML = "The enemy was inflicted with bleed!"
-		} else if (status === "poison") {
-			document.getElementById("damage").innerHTML = "The enemy was poisoned!"
-		} else if (status === "toxic") {
-			document.getElementById("damage").innerHTML = "The enemy was inflicted with Toxic!"
-		} else if (status === "freeze") {
-			document.getElementById("damage").innerHTML = "The enemy was frozen!"
-		} else if (status === "paralyze") {
-			document.getElementById("damage").innerHTML = "The enemy was paralyzed!"
-		} else if (status === "brainwash") {
-			document.getElementById("damage").innerHTML = "The enemy was brainwashed!"
-		} else if (status === "ego") {
-			document.getElementById("damage").innerHTML = "The enemy was inflicted with Ego!"
-		} else if (status === "fear") {
-			document.getElementById("damage").innerHTML = "The enemy was inflicted with Fear!"
-		} else if (status === "paranoia") {
-			document.getElementById("damage").innerHTML = "The enemy was inflicted with Paranoia!"
-		}
-		
-		return true
-	}
-	
-	return false
-}
-		
-
-function dealDmg() {
-	console.log('starting damage generation.');
-
-	// Reset Stuff
-	document.getElementById("damage").innerHTML = "";
-	document.getElementById("secondary").innerHTML = "";
-	
-	// Base Damage
-	var movetype = document.getElementById("atktype").value
-
-	var atk = document.getElementById("rngeatk").value
-	if (movetype == "physical") {
-		atk = document.getElementById("physatk").value
-	}
-
-	var prc = document.getElementById("acc").value
-	var luk = document.getElementById("luck").value
-
-	var enmdef = document.getElementById("def").value
-	var enmagl = document.getElementById("agl").value
-	var enmluk = document.getElementById("eluk").value
-	
-	var movepow = document.getElementById("pow").value
-	var moveacc = document.getElementById("moveacc").value
-	var movecrit = document.getElementById("movecrit").value
-	var movestatus = document.getElementById("status").value
-	var movestatuschance = document.getElementById("statuschance").value
-
-	var dmgtype = document.getElementById("dmgtype").value
-	if (dmgtype == "block") {
-		document.getElementById("damage").innerHTML = "It was blocked!";
-		return false
-	}
-	
-	if (movepow <= 0 && movestatus != "none") {
-		inflictStatus(movestatus, movestatuschance, luk, enmluk);
-		return
-	}
-
-	var dmg = genDmg(atk, prc, luk, movepow, moveacc, movecrit, movestatus, movestatuschance, movetype, enmdef, enmagl, enmluk, dmgtype);
-	var finaltext = "";
-	
-	// Randomness!
-	var rand = Math.floor(Math.random() * 10);
-	console.log('completely random modifier is ' + rand + '. now add it to ' + dmg[0] + '.');
-	dmg[0] = +dmg[0] + +rand;
-	console.log('dmg is ' + dmg[0] + '.');
-
-	// Get results
-	var result = Math.round(dmg[0]);
-	console.log('total dmg is ' + result + '.');
-	
-	// Dodge And Damage
-	var statuschance = Math.random();
-	if (dmg[1] == "miss") {
-		finaltext = "It was dodged!"
-  		document.getElementById("damage").innerHTML = finaltext;
-  		return false
-	} else if (dmg[1] == "repel") {
-  		finaltext = "It was repelled! The user took " + result
-	} else if (dmg[1] == "drain") {
-  		finaltext = "It was drained! The enemy drained " + result;
-	} else {
-  		if (result < 1) {
-  			 result = 1;
-  		}
-
-		finaltext = "The enemy took " + result;
-	}
-	
-	// Display Weakness
-	if (dmg[2] == true){
-		finaltext = finaltext+"🡅";
-	} else if (dmgtype === "resist") {
-		finaltext = finaltext+"🡇";
-	}
-	
-	// Display Crits
-	if (dmg[3] == true){
-		finaltext = finaltext+"☄";
-	}
-	
-	// Display the "damage" part of the text
-	finaltext = finaltext+" damage!";
-	
-	// Now display status
-	if (dmg[4] == true) {
-		if (status === "burn") {
-			finaltext = finaltext+" They were burned!"
-		} else if (status === "bleed") {
-			finaltext = finaltext+" They were inflicted with bleed!"
-		} else if (status === "poison") {
-			finaltext = finaltext+" They were poisoned!"
-		} else if (status === "toxic") {
-			finaltext = finaltext+" They were inflicted with Toxic!"
-		} else if (status === "freeze") {
-			finaltext = finaltext+" They were frozen!"
-		} else if (status === "paralyze") {
-			finaltext = finaltext+" They were paralyzed!"
-		} else if (status === "brainwash") {
-			finaltext = finaltext+" They were brainwashed!"
-		} else if (status === "ego") {
-			finaltext = finaltext+" They were inflicted with Ego!"
-		} else if (status === "fear") {
-			finaltext = finaltext+" They were inflicted with Fear!"
-		} else if (status === "paranoia") {
-			finaltext = finaltext+" They were inflicted with Paranoia!"
-		}
-	}
-  		
-	document.getElementById("damage").innerHTML = finaltext;
-	return true
-}
-
-function randChance() {
-  var chance = Math.random();
-  if (chance > 0.7) {
-     document.getElementById("damage").innerHTML = "Returned True."
-     return true
-  } else {
-     document.getElementById("damage").innerHTML = "Returned False."
-     return false
-  }
-}
-	
-function setPreset() {
-  var name = document.getElementById("charname").value;
-  var strength = document.getElementById("strength").value;
-  var weapon = document.getElementById("weapon").value;
-  var defense = document.getElementById("defense").value;
-  var values = {name, strength, weapon, defense};
-  var sel = document.getElementById("select");
-  var opt = document.createElement("option");
-  opt.appendChild(document.createTextNode(name));
-  opt.value = name;
-  sel.appendChild(opt);
-  if (localStorage.calltimes){
-    localStorage.calltimes = Number(localStorage.calltimes)+1
-  } else {
-    localStorage.calltimes = 1
-  }
-  presets[Number(localStorage.calltimes)] = values
-  if (localStorage.presets){
-    localStorage.presets[Number(localStorage.calltimes)] = values
-  } else {
-    localStorage.presets = {}
-    localStorage.presets[Number(localStorage.calltimes)] = values
-  }
-}
-
+<script>
 // Particles
 particlesJS.load('particles-js', 'particles.json', function() {
   console.log('callback - particles.js config loaded');
